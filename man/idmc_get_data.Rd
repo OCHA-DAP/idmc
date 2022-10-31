@@ -7,10 +7,17 @@
 idmc_get_data()
 }
 \value{
-Tibble of displacement data
+Tibble of displacement data. Description of the data frame variables
+are included in the documentation for the
+\href{https://www.internal-displacement.org/sites/default/files/IDMC_IDU_API_Codebook_14102020.pdf}{IDMC IDU API}.
 }
 \description{
 \code{idmc_get_data()} calls the IDMC API to retrieve displacement data. The data
 is converted from JSON to a data frame, date columns converted to \code{Date}
 types, and returned as a \link[tibble:tibble]{tibble::tibble}.
+}
+\examples{
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+idmc_get_data()
+\dontshow{\}) # examplesIf}
 }

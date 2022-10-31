@@ -4,16 +4,50 @@
 \alias{idmc_rolling_sum}
 \title{Create rolling sums of displacement data}
 \usage{
-idmc_rolling_sum(df, infill = TRUE)
+idmc_rolling_sum(
+  df,
+  backfill_zero = TRUE,
+  min_date = min(as.Date("2018-01-01")),
+  max_date = max(df[["date"]]),
+  filter_min_date = TRUE
+)
 }
 \arguments{
-\item{df}{Event displacement data frame, generated from \code{\link[=idmc_get_data]{idmc_get_data()}}.}
+\item{df}{Daily displacement data frame, generated with \code{\link[=idmc_get_data]{idmc_get_data()}} and
+\code{\link[=idmc_transform_daily]{idmc_transform_daily()}}.}
 
-\item{infill}{If \code{TRUE}, the default, days with no displacement are infilled
-with \code{0}. If \code{FALSE}, no infilling is done automaticaly. However, without
-infilling, rolling sums will not be accurate, so be sure to infill on
-on your own.}
+\item{backfill_zero}{If \code{TRUE}, the default, dates prior to the first
+reported displacement are infilled with zero. Dates are backfilled to
+\code{min_date}. If \code{FALSE}, the displacement data is only infilled
+from the first reported displacement for a given \code{country} and
+\code{displacement_type}.}
+
+\item{min_date}{Date to backfill displacement data to. By default, \code{min_date}
+is set the first day of 2018. Only a few observations of the IDMC data
+are from before 2018, spanning back to 2011. Only used if
+\code{backfill_zero}.}
+
+\item{max_date}{Date to extrapolate all data to. Based on the latest reported
+date in the IDMC dataset.}
+
+\item{filter_min_date}{If \code{TRUE}, the default, filters the data to only
+contain data from \code{min_date} onward. Ensures that the few countries with
+observations from 2011 but nothing until 2018 do not skew results.}
 }
 \description{
-Create rolling sums of displacement data
+\code{idmc_rolling_sum()} generates rolling sums of displacement data that has
+already been transformed into daily data using \code{idmc_transform_daily()}.
+Rolling sums are generated at weekly (7 days), monthly (30 days), quarterly
+(90 days), and yearly (365 days) levels.
+}
+\details{
+By default, data is backfilled for all countries and displacement types to
+the first reported date in the IDMC dataset.
+}
+\examples{
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+idmc_get_data() \%>\%
+    idmc_transform_daily() \%>\%
+    idmc_rolling_sum()
+\dontshow{\}) # examplesIf}
 }

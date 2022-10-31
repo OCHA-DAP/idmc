@@ -1,0 +1,55 @@
+---
+title: "Usage"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Usage}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(idmc)
+```
+
+The simplest use case for the `idmc` package is to retrieve the data from the
+API directly into R.
+
+```{r api}
+df <- idmc_get_data()
+df
+```
+
+This data frame, with variables described in the
+[API documentation](https://www.internal-displacement.org/sites/default/files/IDMC_IDU_API_Codebook_14102020.pdf), includes 1 row per event. To generate daily displacement data across
+all events for a country and type of displacement, we can use
+`idmc_transform_daily()`.
+
+```{r transform}
+df_daily <- idmc_transform_daily(df)
+df_daily
+```
+
+We can also generate displacement aggregates across time, such as weekly or
+yearly simply using `idmc_rolling_sum()`.
+
+```{r rolling}
+df_rolling <- idmc_rolling_sum(df_daily)
+df_rolling
+```
+
+Last, part of the use of this data is to flag abnormal levels of displacement.
+These flags are generated through `idmc_flagging()` and the function is
+also made available for other interested users. However, note that these flags
+are under development and simply meant to be indicative of potential anomalies.
+
+```{r flagging}
+df_flagging <- idmc_flagging(df_rolling)
+df_flagging
+```

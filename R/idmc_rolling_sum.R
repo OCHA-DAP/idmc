@@ -39,7 +39,7 @@ idmc_rolling_sum <- function(
     filter_min_date = TRUE
   ) {
   # check columns present
-  group_cols = c("iso3", "country")
+  group_cols = c("iso3", "country", "displacement_type")
 
   assert_df_cols(
     df = df,
@@ -74,22 +74,22 @@ idmc_rolling_sum <- function(
   df_rolling <- df_complete %>%
     dplyr::mutate(
       displacement_weekly = zoo::rollsumr(
-        x = displacement_daily,
+        x = .data[["displacement_daily"]],
         k = 7,
         fill = 0
       ),
       displacement_monthly = zoo::rollsumr(
-        x = displacement_daily,
+        x = .data[["displacement_daily"]],
         k = 30,
         fill = 0
       ),
       displacement_quarterly = zoo::rollsumr(
-        x = displacement_daily,
+        x = .data[["displacement_daily"]],
         k = 90,
         fill = 0
       ),
       displacement_yearly = zoo::rollsumr(
-        x = displacement_daily,
+        x = .data[["displacement_daily"]],
         k = 365,
         fill = 0
       )

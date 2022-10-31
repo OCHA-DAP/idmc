@@ -12,7 +12,7 @@ assert_df_cols <- function(df, cols, derived_from) {
       "be derived from `",
       derived_from,
       "`. Missing columns are: ",
-      paste(req_cols[!cols_in_df], collapse = ", "),
+      paste(cols[!cols_in_df], collapse = ", "),
       call. = FALSE
     )
   }

@@ -20,3 +20,9 @@ across all days. For each country and displacement type (conflict, disaster,
 or other), all displacement on a day is summed up to create a total
 daily displacement figure.
 }
+\examples{
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+idmc_get_data() \%>\%
+    idmc_transform_daily()
+\dontshow{\}) # examplesIf}
+}

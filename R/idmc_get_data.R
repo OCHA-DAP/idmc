@@ -4,7 +4,9 @@
 #' is converted from JSON to a data frame, date columns converted to `Date`
 #' types, and returned as a [tibble::tibble].
 #'
-#' @return Tibble of displacement data
+#' @return Tibble of displacement data. Description of the data frame variables
+#'     are included in the documentation for the
+#'     [IDMC IDU API](https://www.internal-displacement.org/sites/default/files/IDMC_IDU_API_Codebook_14102020.pdf).
 #'
 #' @examplesIf interactive()
 #' idmc_get_data()
