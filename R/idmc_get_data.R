@@ -5,6 +5,9 @@
 #' types, and returned as a [tibble::tibble]. A valid URL endpoint must be
 #' saved in your environment as `IDMC_API`.
 #'
+#' @param api_url URL to the IDMC API. If `NULL`, the default, searches for
+#'     the `IDMC_API` environment variable.
+#'
 #' @return Tibble of displacement data. Description of the data frame variables
 #'     are included in the documentation for the
 #'     [IDMC IDU API](https://www.internal-displacement.org/sites/default/files/IDMC_IDU_API_Codebook_14102020.pdf).
@@ -14,7 +17,7 @@
 #'
 #' @export
 idmc_get_data <- function(api_url = NULL) {
-  api_url <- get_api_url()
+  api_url <- get_api_url(api_url)
   resp <- httr::GET(api_url)
 
   if (httr::http_type(resp) != "application/json") {
@@ -49,11 +52,15 @@ idmc_get_data <- function(api_url = NULL) {
 #' Get the IDMC API url
 #'
 #' Raises an error if the environment variable `IDMC_API` isn't set.
-get_api_url <- function() {
-  api_url <- Sys.getenv(
-    x = "IDMC_API",
-    unset = NA
-  )
+#'
+#' @noRd
+get_api_url <- function(api_url) {
+  if (is.null(api_url)) {
+    api_url <- Sys.getenv(
+      x = "IDMC_API",
+      unset = NA
+    )
+  }
 
   if (is.na(api_url)) {
     stop(

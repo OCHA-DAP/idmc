@@ -6,6 +6,10 @@
 \usage{
 idmc_get_data(api_url = NULL)
 }
+\arguments{
+\item{api_url}{URL to the IDMC API. If \code{NULL}, the default, searches for
+the \code{IDMC_API} environment variable.}
+}
 \value{
 Tibble of displacement data. Description of the data frame variables
 are included in the documentation for the
