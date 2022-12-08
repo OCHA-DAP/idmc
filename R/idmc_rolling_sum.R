@@ -56,7 +56,7 @@ idmc_rolling_sum <- function(
       )
     ) %>%
     tidyr::complete(
-      date = seq(min(.data$date), max_date, by = "day"),
+      date = seq(min(.data$date) - lubridate::days(365), max_date, by = "day"),
       fill = list(
         displacement_daily = 0
       )
@@ -72,30 +72,30 @@ idmc_rolling_sum <- function(
 
   # calculate rolling sums
   df_rolling <- df_complete %>%
+    dplyr::arrange(
+        .data[["date"]],
+      .by_group = TRUE
+    ) %>%
     dplyr::mutate(
-      displacement_weekly = zoo::rollsum(
+      displacement_weekly = zoo::rollsumr(
         x = .data[["displacement_daily"]],
         k = 7,
-        fill = 0,
-        align = "left"
+        fill = 0
       ),
-      displacement_monthly = zoo::rollsum(
+      displacement_monthly = zoo::rollsumr(
         x = .data[["displacement_daily"]],
         k = 30,
-        fill = 0,
-        align = "left"
+        fill = 0
       ),
-      displacement_quarterly = zoo::rollsum(
+      displacement_quarterly = zoo::rollsumr(
         x = .data[["displacement_daily"]],
         k = 90,
-        fill = 0,
-        align = "left"
+        fill = 0
       ),
-      displacement_yearly = zoo::rollsum(
+      displacement_yearly = zoo::rollsumr(
         x = .data[["displacement_daily"]],
         k = 365,
-        fill = 0,
-        align = "left"
+        fill = 0
       )
     )
 

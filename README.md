@@ -46,8 +46,8 @@ df
 #>  5 93276 Vietnam VNM     15.6     108. [15.59… Disast… total        5 2022-12-03
 #>  6 93277 Vietnam VNM     10.6     105. [10.57… Disast… total      144 2022-12-03
 #>  7 93199 Indone… IDN     -6.30    107. [-6.29… Disast… total       62 2022-12-01
-#>  8 93269 Philip… PHL      6.55    124. [6.55,… Confli… total      474 2022-11-30
-#>  9 93200 Indone… IDN     -6.75    111. [-6.75… Disast… total      200 2022-11-30
+#>  8 93200 Indone… IDN     -6.75    111. [-6.75… Disast… total      200 2022-11-30
+#>  9 93269 Philip… PHL      6.55    124. [6.55,… Confli… total      474 2022-11-30
 #> 10 93083 Philip… PHL     10.4     123  [10.41… Confli… total      468 2022-11-28
 #> # … with 15,591 more rows, 14 more variables: displacement_start_date <date>,
 #> #   displacement_end_date <date>, year <int>, event_name <chr>,
