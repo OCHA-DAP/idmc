@@ -9,6 +9,7 @@ on:
 name: R-CMD-check
 
 jobs:
+  environment: test
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
 
@@ -26,7 +27,7 @@ jobs:
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      IDMC_API: ${{ test.IDMC_API }}
+      IDMC_API: ${{ secrets.IDMC_API }}
       R_KEEP_PKG_SOURCE: yes
 
     steps:
