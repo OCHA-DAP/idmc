@@ -7,12 +7,12 @@ on:
     branches: [main, master]
 
 name: R-CMD-check
+environment: test
 
 jobs:
-  environment: test
+
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
-
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})
 
     strategy:
