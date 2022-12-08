@@ -21,6 +21,7 @@ Imports:
     dplyr,
     httr,
     jsonlite,
+    lubridate,
     magrittr,
     memoise,
     stringr,
