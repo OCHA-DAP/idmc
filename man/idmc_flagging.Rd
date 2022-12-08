@@ -51,6 +51,6 @@ or one year.
 idmc_get_data() \%>\%
     idmc_transform_daily() \%>\%
     idmc_rolling_sum() \%>\%
-    idmc_flagging
+    idmc_flagging()
 \dontshow{\}) # examplesIf}
 }

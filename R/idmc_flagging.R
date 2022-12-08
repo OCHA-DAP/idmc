@@ -35,7 +35,7 @@
 #' idmc_get_data() %>%
 #'     idmc_transform_daily() %>%
 #'     idmc_rolling_sum() %>%
-#'     idmc_flagging
+#'     idmc_flagging()
 #'
 #' @export
 idmc_flagging <- function(

@@ -2,7 +2,8 @@
 #'
 #' `idmc_get_data()` calls the IDMC API to retrieve displacement data. The data
 #' is converted from JSON to a data frame, date columns converted to `Date`
-#' types, and returned as a [tibble::tibble].
+#' types, and returned as a [tibble::tibble]. A valid URL endpoint must be
+#' saved in your environment as `IDMC_API`.
 #'
 #' @return Tibble of displacement data. Description of the data frame variables
 #'     are included in the documentation for the
@@ -12,7 +13,7 @@
 #' idmc_get_data()
 #'
 #' @export
-idmc_get_data <- function() {
+idmc_get_data <- function(api_url = NULL) {
   api_url <- get_api_url()
   resp <- httr::GET(api_url)
 

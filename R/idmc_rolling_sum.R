@@ -73,25 +73,29 @@ idmc_rolling_sum <- function(
   # calculate rolling sums
   df_rolling <- df_complete %>%
     dplyr::mutate(
-      displacement_weekly = zoo::rollsumr(
+      displacement_weekly = zoo::rollsum(
         x = .data[["displacement_daily"]],
         k = 7,
-        fill = 0
+        fill = 0,
+        align = "left"
       ),
-      displacement_monthly = zoo::rollsumr(
+      displacement_monthly = zoo::rollsum(
         x = .data[["displacement_daily"]],
         k = 30,
-        fill = 0
+        fill = 0,
+        align = "left"
       ),
-      displacement_quarterly = zoo::rollsumr(
+      displacement_quarterly = zoo::rollsum(
         x = .data[["displacement_daily"]],
         k = 90,
-        fill = 0
+        fill = 0,
+        align = "left"
       ),
-      displacement_yearly = zoo::rollsumr(
+      displacement_yearly = zoo::rollsum(
         x = .data[["displacement_daily"]],
         k = 365,
-        fill = 0
+        fill = 0,
+        align = "left"
       )
     )
 

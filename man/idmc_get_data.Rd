@@ -4,7 +4,7 @@
 \alias{idmc_get_data}
 \title{Get data from the IDMC API}
 \usage{
-idmc_get_data()
+idmc_get_data(api_url = NULL)
 }
 \value{
 Tibble of displacement data. Description of the data frame variables
@@ -14,7 +14,8 @@ are included in the documentation for the
 \description{
 \code{idmc_get_data()} calls the IDMC API to retrieve displacement data. The data
 is converted from JSON to a data frame, date columns converted to \code{Date}
-types, and returned as a \link[tibble:tibble]{tibble::tibble}.
+types, and returned as a \link[tibble:tibble]{tibble::tibble}. A valid URL endpoint must be
+saved in your environment as \code{IDMC_API}.
 }
 \examples{
 \dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}

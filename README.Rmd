@@ -39,6 +39,15 @@ devtools::install_github("ocha-dap/idmc")
 
 ```{r child="vignettes/idmc-usage.Rmd"}
 ```
+## API URL
+
+You need an API endpoint URL saved to your environment. These are provided by
+IDMC. The easiest way to save the URL for use in your R sessions is by
+using `usethis::edit_r_environ()` and adding the variable there as:
+
+```
+IDMC_API="Insert API URL here"
+```
 
 ## Memoisation
 
