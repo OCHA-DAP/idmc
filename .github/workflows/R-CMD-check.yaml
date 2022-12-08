@@ -9,10 +9,11 @@ on:
 name: R-CMD-check
 
 jobs:
-  environment: test
+  environment:
+    name: test
+
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
-
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})
 
     strategy:
