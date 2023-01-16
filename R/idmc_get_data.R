@@ -45,7 +45,10 @@ idmc_get_data <- function(api_url = NULL) {
       dplyr::across(
         .cols = c(dplyr::contains("date"), "created_at"),
         .fns = as.Date
-      )
+      ),
+      event_url = extract_popup_url(.data[["standard_popup_text"]]),
+      event_info = extract_info_text(.data[["standard_popup_text"]]),
+      .after = "standard_popup_text"
     )
 }
 
@@ -72,4 +75,18 @@ get_api_url <- function(api_url) {
   }
 
   api_url
+}
+
+#' Extract URL from the standard popup text
+#'
+#' @noRd
+extract_popup_url <- function(x) {
+  stringr::str_extract(x, '(?<=href=\\\")(.*)(?="target=\\\")')
+}
+
+#' Extract info text from the standard popup text
+#'
+#' @noRd
+extract_info_text <- function(x) {
+  stringr::str_extract(x, '(?<=\\<br\\> )(.*)(?= \\<br\\>)')
 }
