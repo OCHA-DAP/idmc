@@ -36,7 +36,7 @@ from the API directly into R.
 ``` r
 df <- idmc_get_data()
 df
-#> # A tibble: 16,005 × 24
+#> # A tibble: 16,004 × 26
 #>        id country           iso3  latit…¹ longi…² centr…³ displ…⁴ quali…⁵ figure
 #>     <int> <chr>             <chr>   <dbl>   <dbl> <chr>   <chr>   <chr>    <int>
 #>  1 100701 West Bank and Ga… PSE     31.9     35.3 [31.94… Confli… total       65
@@ -49,13 +49,13 @@ df
 #>  8  99544 Indonesia         IDN     -6.85   109.  [-6.85… Disast… total      788
 #>  9  99670 United States     USA     37.0   -121.  [37.02… Disast… approx…  49000
 #> 10  99528 Indonesia         IDN     -7.02   110.  [-7.02… Disast… total      170
-#> # … with 15,995 more rows, 15 more variables: displacement_date <date>,
+#> # … with 15,994 more rows, 17 more variables: displacement_date <date>,
 #> #   displacement_start_date <date>, displacement_end_date <date>, year <int>,
 #> #   event_name <chr>, event_start_date <date>, event_end_date <date>,
 #> #   category <chr>, subcategory <chr>, type <chr>, subtype <chr>,
-#> #   standard_popup_text <chr>, standard_info_text <chr>, old_id <chr>,
-#> #   created_at <date>, and abbreviated variable names ¹​latitude, ²​longitude,
-#> #   ³​centroid, ⁴​displacement_type, ⁵​qualifier
+#> #   standard_popup_text <chr>, event_url <chr>, event_info <chr>,
+#> #   standard_info_text <chr>, old_id <chr>, created_at <date>, and abbreviated
+#> #   variable names ¹​latitude, ²​longitude, ³​centroid, ⁴​displacement_type, …
 ```
 
 This data frame, with variables described in the [API

@@ -49,7 +49,7 @@ idmc_flagging <- function(
   group_cols = c("iso3", "country")
   displacement_cols <- paste0(
     "displacement_",
-    c("daily", "weekly", "monthly", "quarterly", "yearly")
+    c("weekly", "monthly", "quarterly", "yearly")
   )
 
   assert_df_cols(
@@ -125,10 +125,9 @@ idmc_flagging <- function(
   if (flag_global) {
     df_flagged <- df_flagged %>%
       dplyr::mutate(
-        flag_daily_5k = .data$displacement_daily >= 5000,
-        flag_weekly_20k = .data$displacement_weekly >= 20000,
-        flag_monthly_100k = .data$displacement_monthly >= 100000,
-        flag_quarterly_250k = .data$displacement_quarterly >= 250000,
+        flag_weekly_5k = .data$displacement_weekly >= 5000,
+        flag_monthly_30k = .data$displacement_monthly >= 30000,
+        flag_quarterly_100k = .data$displacement_quarterly >= 100000,
         flag_yearly_500k = .data$displacement_yearly >= 500000
       )
   }
