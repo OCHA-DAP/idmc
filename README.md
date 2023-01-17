@@ -116,26 +116,26 @@ indicative of potential anomalies.
 ``` r
 df_flagging <- idmc_flagging(df_rolling)
 df_flagging
-#> # A tibble: 422,863 × 33
+#> # A tibble: 472,876 × 29
 #>    iso3  country    date       displac…¹ displ…² displ…³ displ…⁴ displ…⁵ flag_…⁶
 #>    <chr> <chr>      <date>         <dbl>   <dbl>   <dbl>   <dbl>   <dbl> <lgl>  
-#>  1 AB9   Abyei Area 2018-01-01         0      NA      NA      NA      NA FALSE  
-#>  2 AB9   Abyei Area 2018-01-02         0      NA      NA      NA      NA FALSE  
-#>  3 AB9   Abyei Area 2018-01-03         0      NA      NA      NA      NA FALSE  
-#>  4 AB9   Abyei Area 2018-01-04         0      NA      NA      NA      NA FALSE  
-#>  5 AB9   Abyei Area 2018-01-05         0      NA      NA      NA      NA FALSE  
-#>  6 AB9   Abyei Area 2018-01-06         0      NA      NA      NA      NA FALSE  
+#>  1 AB9   Abyei Area 2018-01-01         0      NA      NA      NA      NA NA     
+#>  2 AB9   Abyei Area 2018-01-02         0      NA      NA      NA      NA NA     
+#>  3 AB9   Abyei Area 2018-01-03         0      NA      NA      NA      NA NA     
+#>  4 AB9   Abyei Area 2018-01-04         0      NA      NA      NA      NA NA     
+#>  5 AB9   Abyei Area 2018-01-05         0      NA      NA      NA      NA NA     
+#>  6 AB9   Abyei Area 2018-01-06         0      NA      NA      NA      NA NA     
 #>  7 AB9   Abyei Area 2018-01-07         0       0      NA      NA      NA FALSE  
 #>  8 AB9   Abyei Area 2018-01-08         0       0      NA      NA      NA FALSE  
 #>  9 AB9   Abyei Area 2018-01-09         0       0      NA      NA      NA FALSE  
 #> 10 AB9   Abyei Area 2018-01-10         0       0      NA      NA      NA FALSE  
-#> # … with 422,853 more rows, 24 more variables: flag_daily_disaster <lgl>,
-#> #   flag_daily_other <lgl>, flag_weekly_conflict <lgl>,
-#> #   flag_weekly_disaster <lgl>, flag_weekly_other <lgl>,
-#> #   flag_monthly_conflict <lgl>, flag_monthly_disaster <lgl>,
-#> #   flag_monthly_other <lgl>, flag_quarterly_conflict <lgl>,
-#> #   flag_quarterly_disaster <lgl>, flag_quarterly_other <lgl>,
-#> #   flag_yearly_conflict <lgl>, flag_yearly_disaster <lgl>, …
+#> # … with 472,866 more rows, 20 more variables: flag_weekly_disaster <lgl>,
+#> #   flag_weekly_other <lgl>, flag_monthly_conflict <lgl>,
+#> #   flag_monthly_disaster <lgl>, flag_monthly_other <lgl>,
+#> #   flag_quarterly_conflict <lgl>, flag_quarterly_disaster <lgl>,
+#> #   flag_quarterly_other <lgl>, flag_yearly_conflict <lgl>,
+#> #   flag_yearly_disaster <lgl>, flag_yearly_other <lgl>, flag_weekly_5k <lgl>,
+#> #   flag_monthly_30k <lgl>, flag_quarterly_100k <lgl>, …
 ```
 
 ## API URL

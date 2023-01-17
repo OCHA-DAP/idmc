@@ -180,7 +180,7 @@ idmc_flagging <- function(
 #' @noRd
 flag_percent <- function(x, perc = 0.95, exclude_zero = TRUE) {
   lim <- flag_lim(x = x, perc = perc, exclude_zero = exclude_zero)
-  x >= lim
+  x >= max(lim, 1) # value at least of 1 for flagging
 }
 
 #' Get limits for flagging
