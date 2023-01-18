@@ -18,7 +18,7 @@
 #' * Global flags based on static thresholds. These are calculated for total
 #' daily displacement in a country from daily to yearly to find overall
 #' anomalies. The thresholds are 5,000 individuals weekly,
-#' 30,000 monthly, 100,000 quarterly, and 500,000 yearly.
+#' 25,000 monthly, 100,000 quarterly, and 500,000 yearly.
 #' * Flags if there is displacement for the first time in 3 months, 6 months,
 #' or one year.
 #'
@@ -126,7 +126,7 @@ idmc_flagging <- function(
     df_flagged <- df_flagged %>%
       dplyr::mutate(
         flag_weekly_5k = .data$displacement_weekly >= 5000,
-        flag_monthly_30k = .data$displacement_monthly >= 30000,
+        flag_monthly_30k = .data$displacement_monthly >= 25000,
         flag_quarterly_100k = .data$displacement_quarterly >= 100000,
         flag_yearly_500k = .data$displacement_yearly >= 500000
       )
