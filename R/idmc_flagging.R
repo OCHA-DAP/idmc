@@ -77,10 +77,6 @@ idmc_flagging <- function(df) {
     dplyr::rename_with(
       .fn = ~tolower(stringr::str_remove(.x, "displacement_")),
       .cols = dplyr::starts_with("flag_")
-    ) %>%
-    dplyr::select(
-      dplyr::all_of(c(!!group_cols, "date")),
-      dplyr::starts_with("flag")
     )
 
   # look at total flags

@@ -116,26 +116,26 @@ indicative of potential anomalies.
 ``` r
 df_flagging <- idmc_flagging(df_rolling)
 df_flagging
-#> # A tibble: 472,908 × 29
-#>    iso3  country    date       displac…¹ displ…² displ…³ displ…⁴ displ…⁵ flag_…⁶
-#>    <chr> <chr>      <date>         <dbl>   <dbl>   <dbl>   <dbl>   <dbl> <lgl>  
-#>  1 AB9   Abyei Area 2018-01-01         0      NA      NA      NA      NA NA     
-#>  2 AB9   Abyei Area 2018-01-02         0      NA      NA      NA      NA NA     
-#>  3 AB9   Abyei Area 2018-01-03         0      NA      NA      NA      NA NA     
-#>  4 AB9   Abyei Area 2018-01-04         0      NA      NA      NA      NA NA     
-#>  5 AB9   Abyei Area 2018-01-05         0      NA      NA      NA      NA NA     
-#>  6 AB9   Abyei Area 2018-01-06         0      NA      NA      NA      NA NA     
-#>  7 AB9   Abyei Area 2018-01-07         0       0      NA      NA      NA FALSE  
-#>  8 AB9   Abyei Area 2018-01-08         0       0      NA      NA      NA FALSE  
-#>  9 AB9   Abyei Area 2018-01-09         0       0      NA      NA      NA FALSE  
-#> 10 AB9   Abyei Area 2018-01-10         0       0      NA      NA      NA FALSE  
-#> # … with 472,898 more rows, 20 more variables: flag_weekly_disaster <lgl>,
-#> #   flag_weekly_other <lgl>, flag_monthly_conflict <lgl>,
-#> #   flag_monthly_disaster <lgl>, flag_monthly_other <lgl>,
-#> #   flag_quarterly_conflict <lgl>, flag_quarterly_disaster <lgl>,
-#> #   flag_quarterly_other <lgl>, flag_yearly_conflict <lgl>,
-#> #   flag_yearly_disaster <lgl>, flag_yearly_other <lgl>, flag_weekly_5k <lgl>,
-#> #   flag_monthly_30k <lgl>, flag_quarterly_100k <lgl>, …
+#> # A tibble: 637,581 × 21
+#>    iso3  country    displac…¹ date       flag_…² flag_…³ flag_…⁴ flag_…⁵ flag_…⁶
+#>    <chr> <chr>      <chr>     <date>     <lgl>   <lgl>   <lgl>   <lgl>   <lgl>  
+#>  1 AB9   Abyei Area Conflict  2018-01-01 NA      NA      NA      NA      NA     
+#>  2 AB9   Abyei Area Conflict  2018-01-02 NA      NA      NA      NA      NA     
+#>  3 AB9   Abyei Area Conflict  2018-01-03 NA      NA      NA      NA      NA     
+#>  4 AB9   Abyei Area Conflict  2018-01-04 NA      NA      NA      NA      NA     
+#>  5 AB9   Abyei Area Conflict  2018-01-05 NA      NA      NA      NA      NA     
+#>  6 AB9   Abyei Area Conflict  2018-01-06 NA      NA      NA      NA      NA     
+#>  7 AB9   Abyei Area Conflict  2018-01-07 FALSE   NA      NA      NA      FALSE  
+#>  8 AB9   Abyei Area Conflict  2018-01-08 FALSE   NA      NA      NA      FALSE  
+#>  9 AB9   Abyei Area Conflict  2018-01-09 FALSE   NA      NA      NA      FALSE  
+#> 10 AB9   Abyei Area Conflict  2018-01-10 FALSE   NA      NA      NA      FALSE  
+#> # … with 637,571 more rows, 12 more variables: flag_global_monthly <lgl>,
+#> #   flag_global_quarterly <lgl>, flag_global_yearly <lgl>,
+#> #   flag_global_flag_weekly <lgl>, flag_global_flag_monthly <lgl>,
+#> #   flag_global_flag_quarterly <lgl>, flag_global_flag_yearly <lgl>,
+#> #   flag_1st_3_months <lgl>, flag_1st_6_months <lgl>, flag_1st_year <lgl>,
+#> #   flag_total <int>, flag_any <lgl>, and abbreviated variable names
+#> #   ¹​displacement_type, ²​flag_weekly, ³​flag_monthly, ⁴​flag_quarterly, …
 ```
 
 ## API URL
