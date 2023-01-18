@@ -40,8 +40,8 @@ displacement dynamics in a country like Mozambique are not missed due to
 previous large displacements due to natural disasters.
 \item Global flags based on static thresholds. These are calculated for total
 daily displacement in a country from daily to yearly to find overall
-anomalies. The thresholds are 5,000 individuals daily, 20,000 weekly,
-100,000 monthly, 250,000 quarterly, and 500,000 yearly.
+anomalies. The thresholds are 5,000 individuals weekly,
+30,000 monthly, 100,000 quarterly, and 500,000 yearly.
 \item Flags if there is displacement for the first time in 3 months, 6 months,
 or one year.
 }
