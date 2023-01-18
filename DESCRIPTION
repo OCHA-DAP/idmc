@@ -11,7 +11,7 @@ Authors@R:
 Description: idmc provides easy access to event displacement data available
     through the IDMC API. Convenient functions are available to load and
     wrangle the data.
-License: MIT + file LICENSE
+License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
