@@ -36,7 +36,7 @@ from the API directly into R.
 ``` r
 df <- idmc_get_data()
 df
-#> # A tibble: 16,011 × 26
+#> # A tibble: 16,012 × 26
 #>        id country           iso3  latit…¹ longi…² centr…³ displ…⁴ quali…⁵ figure
 #>     <int> <chr>             <chr>   <dbl>   <dbl> <chr>   <chr>   <chr>    <int>
 #>  1 100701 West Bank and Ga… PSE     31.9     35.3 [31.94… Confli… total       65
@@ -44,12 +44,12 @@ df
 #>  3  99554 Russian Federati… RUS     50.4     35.7 [50.38… Confli… total        3
 #>  4 100713 Australia         AUS    -33.6    116.  [-33.5… Disast… total        3
 #>  5 101413 South Sudan       SSD      4.87    31.4 [4.865… Confli… more t…   4500
-#>  6 100062 New Zealand       NZL    -38.4    178.  [-38.3… Disast… total       80
-#>  7 100474 Indonesia         IDN     -7.47   112.  [-7.47… Disast… total        8
-#>  8  99544 Indonesia         IDN     -6.85   109.  [-6.85… Disast… total      788
-#>  9  99670 United States     USA     37.0   -121.  [37.02… Disast… approx…  49000
-#> 10  99528 Indonesia         IDN     -7.02   110.  [-7.02… Disast… total      170
-#> # … with 16,001 more rows, 17 more variables: displacement_date <date>,
+#>  6 101522 Indonesia         IDN     -7.42   128   [-7.41… Disast… total      400
+#>  7 101523 Indonesia         IDN     -7.97   131.  [-7.97… Disast… total      189
+#>  8 100062 New Zealand       NZL    -38.4    178.  [-38.3… Disast… total       80
+#>  9  99614 India             IND     30.5     79.5 [30.51… Disast… total     3098
+#> 10 100474 Indonesia         IDN     -7.47   112.  [-7.47… Disast… total        8
+#> # … with 16,002 more rows, 17 more variables: displacement_date <date>,
 #> #   displacement_start_date <date>, displacement_end_date <date>, year <int>,
 #> #   event_name <chr>, event_start_date <date>, event_end_date <date>,
 #> #   category <chr>, subcategory <chr>, type <chr>, subtype <chr>,
@@ -67,7 +67,7 @@ events for a country and type of displacement, we can use
 ``` r
 df_daily <- idmc_transform_daily(df)
 df_daily
-#> # A tibble: 62,429 × 5
+#> # A tibble: 62,422 × 5
 #>    iso3  country    displacement_type date       displacement_daily
 #>    <chr> <chr>      <chr>             <date>                  <dbl>
 #>  1 AB9   Abyei Area Conflict          2020-01-20              600  
@@ -80,7 +80,7 @@ df_daily
 #>  8 AB9   Abyei Area Conflict          2020-01-27              600  
 #>  9 AB9   Abyei Area Conflict          2020-04-13              260  
 #> 10 AB9   Abyei Area Conflict          2022-02-01               13.3
-#> # … with 62,419 more rows
+#> # … with 62,412 more rows
 ```
 
 We can also generate displacement aggregates across time, such as weekly
@@ -116,7 +116,7 @@ indicative of potential anomalies.
 ``` r
 df_flagging <- idmc_flagging(df_rolling)
 df_flagging
-#> # A tibble: 472,915 × 29
+#> # A tibble: 472,908 × 29
 #>    iso3  country    date       displac…¹ displ…² displ…³ displ…⁴ displ…⁵ flag_…⁶
 #>    <chr> <chr>      <date>         <dbl>   <dbl>   <dbl>   <dbl>   <dbl> <lgl>  
 #>  1 AB9   Abyei Area 2018-01-01         0      NA      NA      NA      NA NA     
@@ -129,7 +129,7 @@ df_flagging
 #>  8 AB9   Abyei Area 2018-01-08         0       0      NA      NA      NA FALSE  
 #>  9 AB9   Abyei Area 2018-01-09         0       0      NA      NA      NA FALSE  
 #> 10 AB9   Abyei Area 2018-01-10         0       0      NA      NA      NA FALSE  
-#> # … with 472,905 more rows, 20 more variables: flag_weekly_disaster <lgl>,
+#> # … with 472,898 more rows, 20 more variables: flag_weekly_disaster <lgl>,
 #> #   flag_weekly_other <lgl>, flag_monthly_conflict <lgl>,
 #> #   flag_monthly_disaster <lgl>, flag_monthly_other <lgl>,
 #> #   flag_quarterly_conflict <lgl>, flag_quarterly_disaster <lgl>,

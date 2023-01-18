@@ -4,33 +4,23 @@
 \alias{idmc_flagging}
 \title{Flag IDMC displacement data}
 \usage{
-idmc_flagging(df, flag_country = TRUE, flag_global = TRUE, flag_first = TRUE)
+idmc_flagging(df)
 }
 \arguments{
 \item{df}{Event displacement data frame, generated from \code{\link[=idmc_rolling_sum]{idmc_rolling_sum()}}.}
-
-\item{flag_country}{Flag country-level anomalies based on anomalies in the
-95th percentile.}
-
-\item{flag_global}{Flag based on globally set thresholds for total
-displacement in a country.}
-
-\item{flag_first}{Flag for first displacements in a set of time.}
-}
-\value{
-Data frame of daily displacement by country and displacement type
-with flags added.
 }
 \description{
 \code{idmc_flagging()} generates flags on IDMC displacement data. Flags can be
 generated based country-level anomalies, global thresholds, and if the
 displacement is the first reported displacement in a period of time. The
-input dataset should be generated from \code{\link[=idmc_rolling_sum]{idmc_rolling_sum()}}.
+input dataset should be generated from \code{\link[=idmc_rolling_sum]{idmc_rolling_sum()}}. All flags are
+calculated separately on displacement type in the IDMC database: conflict,
+displacement, and other.
 }
 \details{
 Flags are generated as:
 \itemize{
-\item Country-level flags by displacement type. Anomalies are generated based
+\item Country-level flags. Anomalies are generated based
 on the values being in the top \%5 of observed displacement values for that
 country (excluding 0, days without displacement). These flags are generated
 across time spans from daily to yearly to detect anomalies at different
@@ -40,8 +30,8 @@ displacement dynamics in a country like Mozambique are not missed due to
 previous large displacements due to natural disasters.
 \item Global flags based on static thresholds. These are calculated for total
 daily displacement in a country from daily to yearly to find overall
-anomalies. The thresholds are 5,000 individuals weekly,
-30,000 monthly, 100,000 quarterly, and 500,000 yearly.
+anomalies. The thresholds are set based on the quantiles for displacement
+data in the database by the end of 2022. Details in \link{df_thresholds}.
 \item Flags if there is displacement for the first time in 3 months, 6 months,
 or one year.
 }
