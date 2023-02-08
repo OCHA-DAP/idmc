@@ -6,6 +6,8 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/caldwellst/idmc/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/caldwellst/idmc/actions/workflows/R-CMD-check.yaml)
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
 The goal of idmc is to provide easy access and wrangling of displacement
@@ -36,20 +38,20 @@ from the API directly into R.
 ``` r
 df <- idmc_get_data()
 df
-#> # A tibble: 16,012 × 26
+#> # A tibble: 16,266 × 26
 #>        id country           iso3  latit…¹ longi…² centr…³ displ…⁴ quali…⁵ figure
 #>     <int> <chr>             <chr>   <dbl>   <dbl> <chr>   <chr>   <chr>    <int>
 #>  1 100701 West Bank and Ga… PSE     31.9     35.3 [31.94… Confli… total       65
-#>  2  98804 United States     USA     33.4    -79.4 [33.39… Disast… total      593
-#>  3  99554 Russian Federati… RUS     50.4     35.7 [50.38… Confli… total        3
-#>  4 100713 Australia         AUS    -33.6    116.  [-33.5… Disast… total        3
-#>  5 101413 South Sudan       SSD      4.87    31.4 [4.865… Confli… more t…   4500
-#>  6 101522 Indonesia         IDN     -7.42   128   [-7.41… Disast… total      400
-#>  7 101523 Indonesia         IDN     -7.97   131.  [-7.97… Disast… total      189
-#>  8 100062 New Zealand       NZL    -38.4    178.  [-38.3… Disast… total       80
-#>  9  99614 India             IND     30.5     79.5 [30.51… Disast… total     3098
-#> 10 100474 Indonesia         IDN     -7.47   112.  [-7.47… Disast… total        8
-#> # … with 16,002 more rows, 17 more variables: displacement_date <date>,
+#>  2 103365 Indonesia         IDN     -7.71   111.  [-7.70… Disast… total        4
+#>  3 103358 Sri Lanka         LKA      9.47    80.5 [9.467… Disast… total        4
+#>  4 103287 Türkiye           TUR     37.5     37.4 [37.47… Disast… total   380500
+#>  5 103349 Philippines       PHL      9.89   123.  [9.891… Confli… total      391
+#>  6 103263 Indonesia         IDN     -2.97   120.  [-2.96… Disast… total      155
+#>  7 103268 Indonesia         IDN     -7.53   111.  [-7.53… Disast… total       19
+#>  8 103361 Sri Lanka         LKA      7.04    81.2 [7.041… Disast… total       12
+#>  9 103262 Indonesia         IDN    -10.2    124.  [-10.1… Disast… total       27
+#> 10 103356 Philippines       PHL     17.9    122.  [17.93… Confli… total      235
+#> # … with 16,256 more rows, 17 more variables: displacement_date <date>,
 #> #   displacement_start_date <date>, displacement_end_date <date>, year <int>,
 #> #   event_name <chr>, event_start_date <date>, event_end_date <date>,
 #> #   category <chr>, subcategory <chr>, type <chr>, subtype <chr>,
@@ -67,7 +69,7 @@ events for a country and type of displacement, we can use
 ``` r
 df_daily <- idmc_transform_daily(df)
 df_daily
-#> # A tibble: 62,422 × 5
+#> # A tibble: 63,684 × 5
 #>    iso3  country    displacement_type date       displacement_daily
 #>    <chr> <chr>      <chr>             <date>                  <dbl>
 #>  1 AB9   Abyei Area Conflict          2020-01-20              600  
@@ -80,7 +82,7 @@ df_daily
 #>  8 AB9   Abyei Area Conflict          2020-01-27              600  
 #>  9 AB9   Abyei Area Conflict          2020-04-13              260  
 #> 10 AB9   Abyei Area Conflict          2022-02-01               13.3
-#> # … with 62,412 more rows
+#> # … with 63,674 more rows
 ```
 
 We can also generate displacement aggregates across time, such as weekly
@@ -116,26 +118,26 @@ indicative of potential anomalies.
 ``` r
 df_flagging <- idmc_flagging(df_rolling)
 df_flagging
-#> # A tibble: 637,581 × 21
-#>    iso3  country    displac…¹ date       flag_…² flag_…³ flag_…⁴ flag_…⁵ flag_…⁶
-#>    <chr> <chr>      <chr>     <date>     <lgl>   <lgl>   <lgl>   <lgl>   <lgl>  
-#>  1 AB9   Abyei Area Conflict  2018-01-01 NA      NA      NA      NA      NA     
-#>  2 AB9   Abyei Area Conflict  2018-01-02 NA      NA      NA      NA      NA     
-#>  3 AB9   Abyei Area Conflict  2018-01-03 NA      NA      NA      NA      NA     
-#>  4 AB9   Abyei Area Conflict  2018-01-04 NA      NA      NA      NA      NA     
-#>  5 AB9   Abyei Area Conflict  2018-01-05 NA      NA      NA      NA      NA     
-#>  6 AB9   Abyei Area Conflict  2018-01-06 NA      NA      NA      NA      NA     
-#>  7 AB9   Abyei Area Conflict  2018-01-07 FALSE   NA      NA      NA      FALSE  
-#>  8 AB9   Abyei Area Conflict  2018-01-08 FALSE   NA      NA      NA      FALSE  
-#>  9 AB9   Abyei Area Conflict  2018-01-09 FALSE   NA      NA      NA      FALSE  
-#> 10 AB9   Abyei Area Conflict  2018-01-10 FALSE   NA      NA      NA      FALSE  
-#> # … with 637,571 more rows, 12 more variables: flag_global_monthly <lgl>,
+#> # A tibble: 637,581 × 26
+#>    iso3  country    displac…¹ date       displ…² displ…³ displ…⁴ displ…⁵ displ…⁶
+#>    <chr> <chr>      <chr>     <date>       <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
+#>  1 AB9   Abyei Area Conflict  2018-01-01       0      NA      NA      NA      NA
+#>  2 AB9   Abyei Area Conflict  2018-01-02       0      NA      NA      NA      NA
+#>  3 AB9   Abyei Area Conflict  2018-01-03       0      NA      NA      NA      NA
+#>  4 AB9   Abyei Area Conflict  2018-01-04       0      NA      NA      NA      NA
+#>  5 AB9   Abyei Area Conflict  2018-01-05       0      NA      NA      NA      NA
+#>  6 AB9   Abyei Area Conflict  2018-01-06       0      NA      NA      NA      NA
+#>  7 AB9   Abyei Area Conflict  2018-01-07       0       0      NA      NA      NA
+#>  8 AB9   Abyei Area Conflict  2018-01-08       0       0      NA      NA      NA
+#>  9 AB9   Abyei Area Conflict  2018-01-09       0       0      NA      NA      NA
+#> 10 AB9   Abyei Area Conflict  2018-01-10       0       0      NA      NA      NA
+#> # … with 637,571 more rows, 17 more variables: flag_weekly <lgl>,
+#> #   flag_monthly <lgl>, flag_quarterly <lgl>, flag_yearly <lgl>,
+#> #   flag_global_weekly <lgl>, flag_global_monthly <lgl>,
 #> #   flag_global_quarterly <lgl>, flag_global_yearly <lgl>,
 #> #   flag_global_flag_weekly <lgl>, flag_global_flag_monthly <lgl>,
 #> #   flag_global_flag_quarterly <lgl>, flag_global_flag_yearly <lgl>,
-#> #   flag_1st_3_months <lgl>, flag_1st_6_months <lgl>, flag_1st_year <lgl>,
-#> #   flag_total <int>, flag_any <lgl>, and abbreviated variable names
-#> #   ¹​displacement_type, ²​flag_weekly, ³​flag_monthly, ⁴​flag_quarterly, …
+#> #   flag_1st_3_months <lgl>, flag_1st_6_months <lgl>, flag_1st_year <lgl>, …
 ```
 
 ## API URL

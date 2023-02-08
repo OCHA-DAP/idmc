@@ -17,7 +17,8 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
   [![R-CMD-check](https://github.com/caldwellst/idmc/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/caldwellst/idmc/actions/workflows/R-CMD-check.yaml)
-  <!-- badges: end -->
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+<!-- badges: end -->
 
 The goal of idmc is to provide easy access and wrangling of displacement data
 stored in the
