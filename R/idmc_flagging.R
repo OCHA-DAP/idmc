@@ -20,9 +20,12 @@
 #' * Global flags based on static thresholds. These are calculated for total
 #' daily displacement in a country from daily to yearly to find overall
 #' anomalies. The thresholds are set based on the quantiles for displacement
-#' data in the database by the end of 2022. Details in [idmc::df_thresholds].
+#' data in the database by the end of 2022. Details in [idmc::df_thresholds_lim].
 #' * Flags if there is displacement for the first time in 3 months, 6 months,
 #' or one year.
+#'
+#' For country-level and global flags, a minimum number of individuals are
+#' needed across all timepoints. This is defined in [idmc::df_thresholds_min].
 #'
 #' @param df Event displacement data frame, generated from [idmc_rolling_sum()].
 #'
@@ -59,7 +62,7 @@ idmc_flagging <- function(df) {
         .cols = dplyr::matches(
           paste(!!displacement_cols, collapse = "|")
         ),
-        .fns = flag_percent,
+        .fns = ~flag_percent(.x, col = dplyr::cur_column()),
         .names = "flag_{.col}"
       ),
       dplyr::across(
@@ -110,9 +113,11 @@ idmc_flagging <- function(df) {
 #' @param exclude_zero Exclude zero from quantile calculation. Defaults to TRUE.
 #'
 #' @noRd
-flag_percent <- function(x, perc = 0.95, exclude_zero = TRUE) {
+flag_percent <- function(x, col, perc = 0.95, exclude_zero = TRUE) {
+  time_col <- stringr::str_match(col, "displacement_(.*)")[2]
+  lim_min <- idmc::df_thresholds_min[1, time_col]
   lim <- flag_lim(x = x, perc = perc, exclude_zero = exclude_zero)
-  x >= max(lim, 1) # value at least of 1 for flagging
+  x >= max(lim, lim_min)
 }
 
 #' Get limits for flagging
@@ -132,12 +137,16 @@ flag_lim <- function(x, perc = 0.95, exclude_zero = TRUE) {
 
 #' Flag values in top percentiles based on set thresholds
 #'
+#' Minimum flag is set at 100.
+#'
 #' @param x Numeric vector
 #' @param col Column name to identify displacement timeline
 #' @param group Group, used to identify displacement type
 #'
 #' @noRd
 flag_percent_global <- function(x, col, group) {
-  lim <- idmc::df_thresholds[group[["displacement_type"]], stringr::str_match(col, "displacement_(.*)")[2]]
-  x >= lim
+  time_col <- stringr::str_match(col, "displacement_(.*)")[2]
+  lim <- idmc::df_thresholds_lim[group[["displacement_type"]], time_col]
+  lim_min <- idmc::df_thresholds_min[1, time_col]
+  x >= max(lim, lim_min)
 }

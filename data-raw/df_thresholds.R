@@ -25,7 +25,7 @@ df %>%
 
 # based on these, set reasonable thresholds for weekly, monthly, quarterly, and yearly
 # that are below the 95th percentile at rounded numbers
-df_thresholds <- data.frame(
+df_thresholds_lim <- data.frame(
   weekly = c(5000, 1000, NA_real_),
   monthly = c(25000, 5000, 20),
   quarterly = c(100000, 50000, 750),
@@ -33,4 +33,14 @@ df_thresholds <- data.frame(
   row.names = c("Conflict", "Disaster", "Other")
 )
 
-usethis::use_data(df_thresholds, overwrite = TRUE)
+# minimum activation thresholds across time points
+df_thresholds_min <- data.frame(
+  weekly = 100,
+  monthly = 500,
+  quarterly = 1500,
+  yearly = 5000
+)
+
+
+usethis::use_data(df_thresholds_lim, overwrite = TRUE)
+usethis::use_data(df_thresholds_min, overwrite = TRUE)
