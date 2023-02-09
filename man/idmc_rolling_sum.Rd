@@ -8,7 +8,7 @@ idmc_rolling_sum(
   df,
   backfill_zero = TRUE,
   min_date = min(as.Date("2018-01-01")),
-  max_date = max(df[["date"]]),
+  max_date = min(max(df[["date"]]), Sys.Date()),
   filter_min_date = TRUE
 )
 }
@@ -27,8 +27,9 @@ is set the first day of 2018. Only a few observations of the IDMC data
 are from before 2018, spanning back to 2011. Only used if
 \code{backfill_zero}.}
 
-\item{max_date}{Date to extrapolate all data to. Based on the latest reported
-date in the IDMC dataset.}
+\item{max_date}{Date to extrapolate all data to. Defaults to the latest
+reported data in the IDMC dataset or \code{Sys.date()}, whichever is
+earliest.}
 
 \item{filter_min_date}{If \code{TRUE}, the default, filters the data to only
 contain data from \code{min_date} onward. Ensures that the few countries with
