@@ -38,20 +38,20 @@ from the API directly into R.
 ``` r
 df <- idmc_get_data()
 df
-#> # A tibble: 16,266 × 26
+#> # A tibble: 16,290 × 26
 #>        id country           iso3  latit…¹ longi…² centr…³ displ…⁴ quali…⁵ figure
 #>     <int> <chr>             <chr>   <dbl>   <dbl> <chr>   <chr>   <chr>    <int>
 #>  1 100701 West Bank and Ga… PSE     31.9     35.3 [31.94… Confli… total       65
-#>  2 103365 Indonesia         IDN     -7.71   111.  [-7.70… Disast… total        4
+#>  2 103444 Indonesia         IDN     -1.59   124.  [-1.58… Disast… total        4
 #>  3 103358 Sri Lanka         LKA      9.47    80.5 [9.467… Disast… total        4
-#>  4 103287 Türkiye           TUR     37.5     37.4 [37.47… Disast… total   380500
-#>  5 103349 Philippines       PHL      9.89   123.  [9.891… Confli… total      391
-#>  6 103263 Indonesia         IDN     -2.97   120.  [-2.96… Disast… total      155
+#>  4 103365 Indonesia         IDN     -7.71   111.  [-7.70… Disast… total        4
+#>  5 103287 Türkiye           TUR     37.5     37.4 [37.47… Disast… total   380500
+#>  6 103349 Philippines       PHL      9.89   123.  [9.891… Confli… total      391
 #>  7 103268 Indonesia         IDN     -7.53   111.  [-7.53… Disast… total       19
-#>  8 103361 Sri Lanka         LKA      7.04    81.2 [7.041… Disast… total       12
-#>  9 103262 Indonesia         IDN    -10.2    124.  [-10.1… Disast… total       27
-#> 10 103356 Philippines       PHL     17.9    122.  [17.93… Confli… total      235
-#> # … with 16,256 more rows, 17 more variables: displacement_date <date>,
+#>  8 103263 Indonesia         IDN     -2.97   120.  [-2.96… Disast… total      155
+#>  9 103361 Sri Lanka         LKA      7.04    81.2 [7.041… Disast… total       12
+#> 10 103439 Fiji              FJI    -16.6    179.  [-16.6… Disast… total      350
+#> # … with 16,280 more rows, 17 more variables: displacement_date <date>,
 #> #   displacement_start_date <date>, displacement_end_date <date>, year <int>,
 #> #   event_name <chr>, event_start_date <date>, event_end_date <date>,
 #> #   category <chr>, subcategory <chr>, type <chr>, subtype <chr>,
@@ -69,7 +69,7 @@ events for a country and type of displacement, we can use
 ``` r
 df_daily <- idmc_transform_daily(df)
 df_daily
-#> # A tibble: 63,684 × 5
+#> # A tibble: 63,708 × 5
 #>    iso3  country    displacement_type date       displacement_daily
 #>    <chr> <chr>      <chr>             <date>                  <dbl>
 #>  1 AB9   Abyei Area Conflict          2020-01-20              600  
@@ -82,7 +82,7 @@ df_daily
 #>  8 AB9   Abyei Area Conflict          2020-01-27              600  
 #>  9 AB9   Abyei Area Conflict          2020-04-13              260  
 #> 10 AB9   Abyei Area Conflict          2022-02-01               13.3
-#> # … with 63,674 more rows
+#> # … with 63,698 more rows
 ```
 
 We can also generate displacement aggregates across time, such as weekly

@@ -1,3 +1,8 @@
+# idmc 0.1.2
+
+* Change `idmc::idmc_rolling_sum()` to not extrapolate past `Sys.date()` by
+default.
+
 # idmc 0.1.1
 
 * Added a `NEWS.md` file to track changes to the package.
