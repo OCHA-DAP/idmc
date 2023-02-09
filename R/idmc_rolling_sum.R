@@ -19,8 +19,9 @@
 #'     is set the first day of 2018. Only a few observations of the IDMC data
 #'     are from before 2018, spanning back to 2011. Only used if
 #'     `backfill_zero`.
-#' @param max_date Date to extrapolate all data to. Based on the latest reported
-#'     date in the IDMC dataset.
+#' @param max_date Date to extrapolate all data to. Defaults to the latest
+#'     reported data in the IDMC dataset or `Sys.date()`, whichever is
+#'     earliest.
 #' @param filter_min_date If `TRUE`, the default, filters the data to only
 #'     contain data from `min_date` onward. Ensures that the few countries with
 #'     observations from 2011 but nothing until 2018 do not skew results.
@@ -35,7 +36,7 @@ idmc_rolling_sum <- function(
     df,
     backfill_zero = TRUE,
     min_date = min(as.Date("2018-01-01")),
-    max_date = max(df[["date"]]),
+    max_date = min(max(df[["date"]]), Sys.Date()),
     filter_min_date = TRUE
   ) {
   # check columns present
@@ -131,7 +132,7 @@ idmc_rolling_sum <- function(
   df_rolling <- df_rolling %>%
     dplyr::mutate(
       dplyr::across(
-        .cols = cols,
+        .cols = !!cols,
         .fns = ~ ifelse(
           dplyr::row_number() < lims[dplyr::cur_column()],
           NA_real_,
