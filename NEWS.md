@@ -1,3 +1,7 @@
+# idmc 0.1.3
+
+* Implement pre-commit for development.
+
 # idmc 0.1.2
 
 * Change `idmc::idmc_rolling_sum()` to not extrapolate past `Sys.date()` by

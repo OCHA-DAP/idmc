@@ -10,7 +10,7 @@
 #'
 #' @return Tibble of displacement data. Description of the data frame variables
 #'     are included in the documentation for the
-#'     [IDMC IDU API](https://www.internal-displacement.org/sites/default/files/IDMC_IDU_API_Codebook_14102020.pdf).
+#'     [IDMC IDU API](https://www.internal-displacement.org/sites/default/files/IDMC_IDU_API_Codebook_14102020.pdf). # nolint
 #'
 #' @examplesIf interactive()
 #' idmc_get_data()
@@ -88,5 +88,5 @@ extract_popup_url <- function(x) {
 #'
 #' @noRd
 extract_info_text <- function(x) {
-  stringr::str_extract(x, '(?<=\\<br\\> )(.*)(?= \\<br\\>)')
+  stringr::str_extract(x, "(?<=\\<br\\> )(.*)(?= \\<br\\>)")
 }

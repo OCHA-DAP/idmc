@@ -23,6 +23,6 @@ daily displacement figure.
 \examples{
 \dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 idmc_get_data() \%>\%
-    idmc_transform_daily()
+  idmc_transform_daily()
 \dontshow{\}) # examplesIf}
 }

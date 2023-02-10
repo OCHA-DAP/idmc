@@ -13,7 +13,7 @@
 #'
 #' @examplesIf interactive()
 #' idmc_get_data() %>%
-#'     idmc_transform_daily()
+#'   idmc_transform_daily()
 #'
 #' @export
 idmc_transform_daily <- function(df) {
@@ -45,7 +45,7 @@ idmc_transform_daily <- function(df) {
       !is.na(.data[["displacement_date"]]) # drop where no start/end available
     ) %>%
     dplyr::mutate(
-       start_date = dplyr::if_else( # reverse and fill start_date if necess
+      start_date = dplyr::if_else( # reverse and fill start_date if necess
         is.na(.data[[e_col_]]) | .data[[s_col_]] <= .data[[e_col_]],
         .data[[s_col_]],
         .data[[e_col_]]

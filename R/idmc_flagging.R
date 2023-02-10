@@ -20,7 +20,8 @@
 #' * Global flags based on static thresholds. These are calculated for total
 #' daily displacement in a country from daily to yearly to find overall
 #' anomalies. The thresholds are set based on the quantiles for displacement
-#' data in the database by the end of 2022. Details in [idmc::df_thresholds_lim].
+#' data in the database by the end of 2022. Details in
+#' [idmc::df_thresholds_lim].
 #' * Flags if there is displacement for the first time in 3 months, 6 months,
 #' or one year.
 #'
@@ -31,14 +32,16 @@
 #'
 #' @examplesIf interactive()
 #' idmc_get_data() %>%
-#'     idmc_transform_daily() %>%
-#'     idmc_rolling_sum() %>%
-#'     idmc_flagging()
+#'   idmc_transform_daily() %>%
+#'   idmc_rolling_sum() %>%
+#'   idmc_flagging()
+#'
+#' @importFrom dplyr .data
 #'
 #' @export
 idmc_flagging <- function(df) {
   # check columns presence
-  group_cols = c("iso3", "country", "displacement_type")
+  group_cols <- c("iso3", "country", "displacement_type")
   displacement_cols <- paste0(
     "displacement_",
     c("weekly", "monthly", "quarterly", "yearly")
@@ -62,23 +65,34 @@ idmc_flagging <- function(df) {
         .cols = dplyr::matches(
           paste(!!displacement_cols, collapse = "|")
         ),
-        .fns = ~flag_percent(.x, col = dplyr::cur_column()),
+        .fns = ~ flag_percent(.x, col = dplyr::cur_column()),
         .names = "flag_{.col}"
       ),
       dplyr::across(
         .cols = dplyr::matches(
           paste(!!displacement_cols, collapse = "|")
         ),
-        .fns = ~ flag_percent_global(.x, dplyr::cur_column(), dplyr::cur_group()),
+        .fns = ~ flag_percent_global(
+          x = .x,
+          col = dplyr::cur_column(),
+          group = dplyr::cur_group()
+        ),
         .names = "flag_global_{.col}"
       ),
-      flag_1st_3_months = .data$displacement_daily > 0 & dplyr::lag(.data$displacement_quarterly) == 0,
-      flag_1st_6_months = .data$displacement_daily > 0 & dplyr::lag(.data$displacement_quarterly) == 0 & dplyr::lag(.data$displacement_quarterly, n = 2) == 0,
-      flag_1st_year = .data$displacement_daily > 0 & dplyr::lag(.data$displacement_yearly) == 0,
+      chk_dly = .data$displacement_daily > 0,
+      chk_qrt = dplyr::lag(.data$displacement_quarterly) == 0,
+      chk_qrt2 = dplyr::lag(.data$displacement_quarterly, n = 2) == 0,
+      chk_yrl = dplyr::lag(.data$displacement_yearly) == 0,
+      flag_1st_3_months = .data$chk_dly & .data$chk_qrt,
+      flag_1st_6_months = .data$chk_dly & .data$chk_qrt & .data$chk_qrt2,
+      flag_1st_year = .data$chk_dly & .data$chk_yrl
     ) %>%
-    dplyr::ungroup() %>%
+    dplyr::select(
+      -dplyr::starts_with("chk_")
+    )
+  dplyr::ungroup() %>%
     dplyr::rename_with(
-      .fn = ~tolower(stringr::str_remove(.x, "displacement_")),
+      .fn = ~ tolower(stringr::str_remove(.x, "displacement_")),
       .cols = dplyr::starts_with("flag_")
     )
 
@@ -94,7 +108,7 @@ idmc_flagging <- function(df) {
     ) %>%
     dplyr::summarize(
       flag_total = sum(.data[["value"]], na.rm = TRUE),
-      flag_any  = any(.data[["value"]], na.rm = TRUE)
+      flag_any = any(.data[["value"]], na.rm = TRUE)
     )
 
   # return all

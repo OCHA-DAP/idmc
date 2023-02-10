@@ -31,7 +31,8 @@ previous large displacements due to natural disasters.
 \item Global flags based on static thresholds. These are calculated for total
 daily displacement in a country from daily to yearly to find overall
 anomalies. The thresholds are set based on the quantiles for displacement
-data in the database by the end of 2022. Details in \link{df_thresholds_lim}.
+data in the database by the end of 2022. Details in
+\link{df_thresholds_lim}.
 \item Flags if there is displacement for the first time in 3 months, 6 months,
 or one year.
 }
@@ -42,8 +43,8 @@ needed across all timepoints. This is defined in \link{df_thresholds_min}.
 \examples{
 \dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 idmc_get_data() \%>\%
-    idmc_transform_daily() \%>\%
-    idmc_rolling_sum() \%>\%
-    idmc_flagging()
+  idmc_transform_daily() \%>\%
+  idmc_rolling_sum() \%>\%
+  idmc_flagging()
 \dontshow{\}) # examplesIf}
 }

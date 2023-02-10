@@ -23,8 +23,8 @@ df %>%
     )
   )
 
-# based on these, set reasonable thresholds for weekly, monthly, quarterly, and yearly
-# that are below the 95th percentile at rounded numbers
+# based on these, set reasonable thresholds for weekly, monthly, quarterly,
+# and yearly that are below the 95th percentile at rounded numbers
 df_thresholds_lim <- data.frame(
   weekly = c(5000, 1000, NA_real_),
   monthly = c(25000, 5000, 20),

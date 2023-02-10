@@ -28,19 +28,17 @@
 #'
 #' @examplesIf interactive()
 #' idmc_get_data() %>%
-#'     idmc_transform_daily() %>%
-#'     idmc_rolling_sum()
+#'   idmc_transform_daily() %>%
+#'   idmc_rolling_sum()
 #'
 #' @export
-idmc_rolling_sum <- function(
-    df,
-    backfill_zero = TRUE,
-    min_date = min(as.Date("2018-01-01")),
-    max_date = min(max(df[["date"]]), Sys.Date()),
-    filter_min_date = TRUE
-  ) {
+idmc_rolling_sum <- function(df,
+                             backfill_zero = TRUE,
+                             min_date = min(as.Date("2018-01-01")),
+                             max_date = min(max(df[["date"]]), Sys.Date()),
+                             filter_min_date = TRUE) {
   # check columns present
-  group_cols = c("iso3", "country", "displacement_type")
+  group_cols <- c("iso3", "country", "displacement_type")
 
   assert_df_cols(
     df = df,
@@ -74,7 +72,7 @@ idmc_rolling_sum <- function(
   # calculate rolling sums
   df_rolling <- df_complete %>%
     dplyr::arrange(
-        .data[["date"]],
+      .data[["date"]],
       .by_group = TRUE
     ) %>%
     dplyr::mutate(
