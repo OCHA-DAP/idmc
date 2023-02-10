@@ -1,6 +1,7 @@
 # idmc 0.1.3
 
 * Implement pre-commit for development.
+* Fix error in `idmc::idmc_rolling_sum()`.
 
 # idmc 0.1.2
 

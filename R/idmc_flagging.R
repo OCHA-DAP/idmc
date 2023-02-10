@@ -89,8 +89,8 @@ idmc_flagging <- function(df) {
     ) %>%
     dplyr::select(
       -dplyr::starts_with("chk_")
-    )
-  dplyr::ungroup() %>%
+    ) %>%
+    dplyr::ungroup() %>%
     dplyr::rename_with(
       .fn = ~ tolower(stringr::str_remove(.x, "displacement_")),
       .cols = dplyr::starts_with("flag_")
