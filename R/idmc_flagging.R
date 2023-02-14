@@ -61,23 +61,17 @@ idmc_flagging <- function(df) {
       )
     ) %>%
     dplyr::mutate(
-      dplyr::across( # country
-        .cols = dplyr::matches(
-          paste(!!displacement_cols, collapse = "|")
-        ),
-        .fns = ~ flag_percent(.x, col = dplyr::cur_column()),
-        .names = "flag_{.col}"
-      ),
       dplyr::across(
-        .cols = dplyr::matches(
-          paste(!!displacement_cols, collapse = "|")
+        .cols = dplyr::any_of(!!displacement_cols),
+        .fns = list(
+          "flag" = ~ flag_percent(.x, col = dplyr::cur_column()),
+          "flag_global" = ~ flag_percent_global(
+            x = .x,
+            col = dplyr::cur_column(),
+            group = dplyr::cur_group()
+          )
         ),
-        .fns = ~ flag_percent_global(
-          x = .x,
-          col = dplyr::cur_column(),
-          group = dplyr::cur_group()
-        ),
-        .names = "flag_global_{.col}"
+        .names = "{.fn}_{.col}"
       ),
       chk_dly = .data$displacement_daily > 0,
       chk_qrt = dplyr::lag(.data$displacement_quarterly) == 0,
@@ -104,7 +98,8 @@ idmc_flagging <- function(df) {
     ) %>%
     dplyr::group_by(
       .data$iso3,
-      .data$date
+      .data$date,
+      .data$displacement_type
     ) %>%
     dplyr::summarize(
       flag_total = sum(.data[["value"]], na.rm = TRUE),
@@ -115,7 +110,7 @@ idmc_flagging <- function(df) {
   dplyr::left_join(
     df_flagged,
     df_flagged_total,
-    by = c("iso3", "date")
+    by = c("iso3", "date", "displacement_type")
   )
 }
 

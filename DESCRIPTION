@@ -1,6 +1,6 @@
 Package: idmc
 Title: Load and Wrangle IDMC Displacement Data
-Version: 0.1.3
+Version: 0.1.4
 Authors@R: 
     person(
       given = "Seth",
