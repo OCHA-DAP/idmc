@@ -1,3 +1,8 @@
+# idmc 0.1.5
+
+* Minimum thresholds increased in `df_thresholds_min` based on feedback from
+CERF
+
 # idmc 0.1.4
 
 * `idmc_flagging()` adjusted to account for different displacement types

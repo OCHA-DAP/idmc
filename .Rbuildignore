@@ -2,6 +2,5 @@
 ^README\.Rmd$
 ^\.Rproj\.user$
 ^\.github$
-^\.pre-commit-config\.yaml$
 ^data-raw$
 ^idmc\.Rproj$

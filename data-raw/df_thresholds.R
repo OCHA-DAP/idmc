@@ -35,12 +35,11 @@ df_thresholds_lim <- data.frame(
 
 # minimum activation thresholds across time points
 df_thresholds_min <- data.frame(
-  weekly = 100,
-  monthly = 500,
-  quarterly = 1500,
-  yearly = 5000
+  weekly = 1000,
+  monthly = 5000,
+  quarterly = 10000,
+  yearly = 25000
 )
-
 
 usethis::use_data(df_thresholds_lim, overwrite = TRUE)
 usethis::use_data(df_thresholds_min, overwrite = TRUE)
