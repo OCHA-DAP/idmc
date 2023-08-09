@@ -1,3 +1,11 @@
+# idmc 0.2.0
+
+* `idmc_flagging()` and `idmc_rolling_sum()` deprecated as package focus pared
+back.
+* `idmc_rolling_sum()` functionality for infilling and extrapolation put into
+`idmc_transform_daily()`.
+
+
 # idmc 0.1.5
 
 * Minimum thresholds increased in `df_thresholds_min` based on feedback from

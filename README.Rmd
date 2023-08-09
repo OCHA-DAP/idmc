@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 # idmc
 
 <!-- badges: start -->
-  [![R-CMD-check](https://github.com/caldwellst/idmc/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/caldwellst/idmc/actions/workflows/R-CMD-check.yaml)
+  [![R-CMD-check](https://github.com/OCHA-DAP/idmc/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/OCHA-DAP/idmc/actions/workflows/R-CMD-check.yaml)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 

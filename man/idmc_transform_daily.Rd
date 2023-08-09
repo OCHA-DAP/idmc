@@ -4,10 +4,29 @@
 \alias{idmc_transform_daily}
 \title{Transform displacement event data to daily data}
 \usage{
-idmc_transform_daily(df)
+idmc_transform_daily(
+  df,
+  min_date = min(as.Date("2018-01-01")),
+  max_date = Sys.Date(),
+  filter_min_date = TRUE
+)
 }
 \arguments{
 \item{df}{Event displacement data frame, generated from \code{\link[=idmc_get_data]{idmc_get_data()}}.}
+
+\item{min_date}{Date to backfill displacement data to. By default, \code{min_date}
+is set the first day of 2018. Only a few observations of the IDMC data
+are from before 2018, spanning back to 2011.
+If \code{NULL}, no backfilling is done, and the first reported
+case in the IDMC database is taken as the earliest.}
+
+\item{max_date}{Date to extrapolate all data to, filling with \code{0}. If the
+The latest date in the data frame is used if later than \code{max_date}.
+If \code{NULL}, no extrapolation is done.}
+
+\item{filter_min_date}{If \code{TRUE}, the default, filters the data to only
+contain data from \code{min_date} onward. Ensures that the few countries with
+observations from 2011 but nothing until 2018 do not skew results.}
 }
 \value{
 Data frame of daily displacement by country and displacement type.
@@ -19,6 +38,11 @@ the start and end date, with the total displacement uniformly distributed
 across all days. For each country and displacement type (conflict, disaster,
 or other), all displacement on a day is summed up to create a total
 daily displacement figure.
+}
+\details{
+By default, data is backfilled for all countries and displacement types to
+the first reported date in the IDMC dataset. Data is always infilled with 0
+between start and end dates.
 }
 \examples{
 \dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
