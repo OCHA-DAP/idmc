@@ -10,14 +10,18 @@ idmc_flagging(df)
 \item{df}{Event displacement data frame, generated from \code{\link[=idmc_rolling_sum]{idmc_rolling_sum()}}.}
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
+This function was deprecated as flagging was removed from the scope of this
+package, which now solely functions on downloading and processing IDMC data.
+
 \code{idmc_flagging()} generates flags on IDMC displacement data. Flags can be
 generated based country-level anomalies, global thresholds, and if the
 displacement is the first reported displacement in a period of time. The
 input dataset should be generated from \code{\link[=idmc_rolling_sum]{idmc_rolling_sum()}}. All flags are
 calculated separately on displacement type in the IDMC database: conflict,
 displacement, and other.
-}
-\details{
+
 Flags are generated as:
 \itemize{
 \item Country-level flags. Anomalies are generated based

@@ -36,12 +36,16 @@ contain data from \code{min_date} onward. Ensures that the few countries with
 observations from 2011 but nothing until 2018 do not skew results.}
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
+This function was deprecated as flagging was removed from the scope of this
+package, which now solely functions on downloading and processing IDMC data.
+
 \code{idmc_rolling_sum()} generates rolling sums of displacement data that has
 already been transformed into daily data using \code{idmc_transform_daily()}.
 Rolling sums are generated at weekly (7 days), monthly (30 days), quarterly
 (90 days), and yearly (365 days) levels.
-}
-\details{
+
 By default, data is backfilled for all countries and displacement types to
 the first reported date in the IDMC dataset.
 }

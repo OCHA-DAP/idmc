@@ -1,5 +1,11 @@
 #' Create rolling sums of displacement data
 #'
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
+#' This function was deprecated as flagging was removed from the scope of this
+#' package, which now solely functions on downloading and processing IDMC data.
+#'
 #' `idmc_rolling_sum()` generates rolling sums of displacement data that has
 #' already been transformed into daily data using `idmc_transform_daily()`.
 #' Rolling sums are generated at weekly (7 days), monthly (30 days), quarterly

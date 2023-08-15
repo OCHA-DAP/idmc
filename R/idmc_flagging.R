@@ -1,5 +1,11 @@
 #' Flag IDMC displacement data
 #'
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
+#' This function was deprecated as flagging was removed from the scope of this
+#' package, which now solely functions on downloading and processing IDMC data.
+#'
 #' `idmc_flagging()` generates flags on IDMC displacement data. Flags can be
 #' generated based country-level anomalies, global thresholds, and if the
 #' displacement is the first reported displacement in a period of time. The

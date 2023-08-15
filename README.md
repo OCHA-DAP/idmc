@@ -5,7 +5,7 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/caldwellst/idmc/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/caldwellst/idmc/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/OCHA-DAP/idmc/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/OCHA-DAP/idmc/actions/workflows/R-CMD-check.yaml)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
@@ -32,115 +32,62 @@ devtools::install_github("ocha-dap/idmc")
 library(idmc)
 ```
 
-The simplest use case for the `idmc` package is to retrieve the data
-from the API directly into R.
+The simple use for the `idmc` package is to retrieve the data from the
+API directly into R.
 
 ``` r
 df <- idmc_get_data()
 df
-#> # A tibble: 16,308 × 26
-#>        id country           iso3  latit…¹ longi…² centr…³ displ…⁴ quali…⁵ figure
-#>     <int> <chr>             <chr>   <dbl>   <dbl> <chr>   <chr>   <chr>    <int>
-#>  1 100701 West Bank and Ga… PSE     31.9     35.3 [31.94… Confli… total       65
-#>  2 103602 New Zealand       NZL    -36.9    175.  [-36.8… Disast… total      134
-#>  3 103603 New Zealand       NZL    -38.0    177.  [-38.0… Disast… approx…   1335
-#>  4 103606 New Zealand       NZL    -36.9    175.  [-36.8… Disast… total        8
-#>  5 103608 Indonesia         IDN     -6.23   107.  [-6.23… Disast… total       39
-#>  6 103609 Indonesia         IDN     -6.57   108.  [-6.56… Disast… total       70
-#>  7 103589 Indonesia         IDN     -8.45   119.  [-8.45… Disast… total        4
-#>  8 103533 Indonesia         IDN     -6.23   107.  [-6.23… Disast… total       12
-#>  9 103535 Indonesia         IDN     -7.71   114.  [-7.70… Disast… total       35
-#> 10 103474 Indonesia         IDN     -2.65   141.  [-2.64… Disast… total     2136
-#> # … with 16,298 more rows, 17 more variables: displacement_date <date>,
+#> # A tibble: 19,916 × 26
+#>        id country  iso3  latitude longitude centroid displacement_type qualifier
+#>     <int> <chr>    <chr>    <dbl>     <dbl> <chr>    <chr>             <chr>    
+#>  1 118931 Myanmar  MMR      13.0      98.7  [13.014… Disaster          total    
+#>  2 118836 India    IND      20.2      84.7  [20.190… Disaster          total    
+#>  3 118595 Canada   CAN      63.6    -136.   [63.595… Disaster          approxim…
+#>  4 118909 Viet Nam VNM      12.2     108.   [12.175… Disaster          total    
+#>  5 118907 Viet Nam VNM      22.2     104.   [22.176… Disaster          total    
+#>  6 118621 Indones… IDN      -1.46    120.   [-1.462… Disaster          total    
+#>  7 118593 France   FRA      43.7       3.90 [43.714… Disaster          total    
+#>  8 118899 United … USA      58.4    -134.   [58.379… Disaster          total    
+#>  9 118827 India    IND      26.1      90.8  [26.054… Disaster          total    
+#> 10 118560 China    CHN      37.1     116.   [37.134… Disaster          total    
+#> # ℹ 19,906 more rows
+#> # ℹ 18 more variables: figure <int>, displacement_date <date>,
 #> #   displacement_start_date <date>, displacement_end_date <date>, year <int>,
 #> #   event_name <chr>, event_start_date <date>, event_end_date <date>,
 #> #   category <chr>, subcategory <chr>, type <chr>, subtype <chr>,
 #> #   standard_popup_text <chr>, event_url <chr>, event_info <chr>,
-#> #   standard_info_text <chr>, old_id <chr>, created_at <date>, and abbreviated
-#> #   variable names ¹​latitude, ²​longitude, ³​centroid, ⁴​displacement_type, …
+#> #   standard_info_text <chr>, old_id <chr>, created_at <date>
 ```
 
 This data frame, with variables described in the [API
 documentation](https://www.internal-displacement.org/sites/default/files/IDMC_IDU_API_Codebook_14102020.pdf),
-includes 1 row per event. To generate daily displacement data across all
-events for a country and type of displacement, we can use
+includes 1 row per event. We can normalize this to daily displacement,
+assuming uniform distribution of displacement between start and end
+date, for all countries and type of displacement.
 `idmc_transform_daily()`.
 
 ``` r
-df_daily <- idmc_transform_daily(df)
-df_daily
-#> # A tibble: 63,821 × 5
+idmc_transform_daily(df)
+#> # A tibble: 71,296 × 5
 #>    iso3  country    displacement_type date       displacement_daily
 #>    <chr> <chr>      <chr>             <date>                  <dbl>
-#>  1 AB9   Abyei Area Conflict          2020-01-20              600  
-#>  2 AB9   Abyei Area Conflict          2020-01-21              600  
-#>  3 AB9   Abyei Area Conflict          2020-01-22              600  
-#>  4 AB9   Abyei Area Conflict          2020-01-23              600  
-#>  5 AB9   Abyei Area Conflict          2020-01-24              600  
-#>  6 AB9   Abyei Area Conflict          2020-01-25              600  
-#>  7 AB9   Abyei Area Conflict          2020-01-26              600  
-#>  8 AB9   Abyei Area Conflict          2020-01-27              600  
-#>  9 AB9   Abyei Area Conflict          2020-04-13              260  
-#> 10 AB9   Abyei Area Conflict          2022-02-01               13.3
-#> # … with 63,811 more rows
+#>  1 AB9   Abyei Area Conflict          2020-01-20               600 
+#>  2 AB9   Abyei Area Conflict          2020-01-21               600 
+#>  3 AB9   Abyei Area Conflict          2020-01-22               600 
+#>  4 AB9   Abyei Area Conflict          2020-01-23               600 
+#>  5 AB9   Abyei Area Conflict          2020-01-24               600 
+#>  6 AB9   Abyei Area Conflict          2020-01-25               600 
+#>  7 AB9   Abyei Area Conflict          2020-01-26               600 
+#>  8 AB9   Abyei Area Conflict          2020-01-27               600 
+#>  9 AB9   Abyei Area Conflict          2020-04-13               260 
+#> 10 AB9   Abyei Area Conflict          2022-02-10              9937.
+#> # ℹ 71,286 more rows
 ```
 
-We can also generate displacement aggregates across time, such as weekly
-or yearly simply using `idmc_rolling_sum()`.
-
-``` r
-df_rolling <- idmc_rolling_sum(df_daily)
-df_rolling
-#> # A tibble: 544,492 × 9
-#>    iso3  country    displac…¹ date       displ…² displ…³ displ…⁴ displ…⁵ displ…⁶
-#>    <chr> <chr>      <chr>     <date>       <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
-#>  1 AB9   Abyei Area Conflict  2018-01-01       0      NA      NA      NA      NA
-#>  2 AB9   Abyei Area Conflict  2018-01-02       0      NA      NA      NA      NA
-#>  3 AB9   Abyei Area Conflict  2018-01-03       0      NA      NA      NA      NA
-#>  4 AB9   Abyei Area Conflict  2018-01-04       0      NA      NA      NA      NA
-#>  5 AB9   Abyei Area Conflict  2018-01-05       0      NA      NA      NA      NA
-#>  6 AB9   Abyei Area Conflict  2018-01-06       0      NA      NA      NA      NA
-#>  7 AB9   Abyei Area Conflict  2018-01-07       0       0      NA      NA      NA
-#>  8 AB9   Abyei Area Conflict  2018-01-08       0       0      NA      NA      NA
-#>  9 AB9   Abyei Area Conflict  2018-01-09       0       0      NA      NA      NA
-#> 10 AB9   Abyei Area Conflict  2018-01-10       0       0      NA      NA      NA
-#> # … with 544,482 more rows, and abbreviated variable names ¹​displacement_type,
-#> #   ²​displacement_daily, ³​displacement_weekly, ⁴​displacement_monthly,
-#> #   ⁵​displacement_quarterly, ⁶​displacement_yearly
-```
-
-Last, part of the use of this data is to flag abnormal levels of
-displacement. These flags are generated through `idmc_flagging()` and
-the function is also made available for other interested users. However,
-note that these flags are under development and simply meant to be
-indicative of potential anomalies.
-
-``` r
-df_flagging <- idmc_flagging(df_rolling)
-df_flagging
-#> # A tibble: 544,492 × 26
-#>    iso3  country    displac…¹ date       displ…² displ…³ displ…⁴ displ…⁵ displ…⁶
-#>    <chr> <chr>      <chr>     <date>       <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
-#>  1 AB9   Abyei Area Conflict  2018-01-01       0      NA      NA      NA      NA
-#>  2 AB9   Abyei Area Conflict  2018-01-02       0      NA      NA      NA      NA
-#>  3 AB9   Abyei Area Conflict  2018-01-03       0      NA      NA      NA      NA
-#>  4 AB9   Abyei Area Conflict  2018-01-04       0      NA      NA      NA      NA
-#>  5 AB9   Abyei Area Conflict  2018-01-05       0      NA      NA      NA      NA
-#>  6 AB9   Abyei Area Conflict  2018-01-06       0      NA      NA      NA      NA
-#>  7 AB9   Abyei Area Conflict  2018-01-07       0       0      NA      NA      NA
-#>  8 AB9   Abyei Area Conflict  2018-01-08       0       0      NA      NA      NA
-#>  9 AB9   Abyei Area Conflict  2018-01-09       0       0      NA      NA      NA
-#> 10 AB9   Abyei Area Conflict  2018-01-10       0       0      NA      NA      NA
-#> # … with 544,482 more rows, 17 more variables: flag_weekly <lgl>,
-#> #   flag_monthly <lgl>, flag_quarterly <lgl>, flag_yearly <lgl>,
-#> #   flag_global_weekly <lgl>, flag_global_monthly <lgl>,
-#> #   flag_global_quarterly <lgl>, flag_global_yearly <lgl>,
-#> #   flag_global_flag_weekly <lgl>, flag_global_flag_monthly <lgl>,
-#> #   flag_global_flag_quarterly <lgl>, flag_global_flag_yearly <lgl>,
-#> #   flag_1st_3_months <lgl>, flag_1st_6_months <lgl>, flag_1st_year <lgl>, …
-```
-
-## API URL
+While there are a few other parameters you can play around with in these
+functions, this is the primary purpose of this simple package. \## API
+URL
 
 You need an API endpoint URL saved to your environment. These are
 provided by IDMC. The easiest way to save the URL for use in your R
