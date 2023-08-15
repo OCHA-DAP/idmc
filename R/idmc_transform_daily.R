@@ -132,5 +132,5 @@ idmc_transform_daily <- function(
       )
   }
 
-  df_complete
+  dplyr::ungroup(df_complete)
 }
