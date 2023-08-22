@@ -8,7 +8,7 @@ Authors@R:
       email = "caldwellst@gmail.com",
       role = c("aut", "cre", "cph")
     )
-Description: Convenient functions to load and wrangle event displacement data
+Description: Utilities to load and wrangle event displacement data
     from the Internal Displacement Monitoring Centre.
 License: GPL (>= 3)
 Encoding: UTF-8

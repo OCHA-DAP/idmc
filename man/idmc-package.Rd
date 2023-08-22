@@ -6,7 +6,7 @@
 \alias{idmc-package}
 \title{idmc: Load and Wrangle IDMC Displacement Data}
 \description{
-idmc provides easy access to event displacement data available from the Internal Displacement Monitoring Centre. Convenient functions are available to load and wrangle the data.
+Utilities to load and wrangle event displacement data from the Internal Displacement Monitoring Centre.
 }
 \seealso{
 Useful links:
@@ -17,7 +17,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Seth Caldwell \email{caldwellst@gmail.com} [complainant-appellant]
+\strong{Maintainer}: Seth Caldwell \email{caldwellst@gmail.com} [copyright holder]
 
 }
 \keyword{internal}
