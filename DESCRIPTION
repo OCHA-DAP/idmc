@@ -8,9 +8,9 @@ Authors@R:
       email = "caldwellst@gmail.com",
       role = c("aut", "cre", "cpt")
     )
-Description: idmc provides easy access to event displacement data available
-    from the Internal Displacement Monitoring Centre. Convenient functions are
-    available to load and wrangle the data.
+Description: This packages provides easy access to event displacement data
+    available from the Internal Displacement Monitoring Centre (IDMC). Convenient
+    functions are available to load and wrangle the IDMC data.
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

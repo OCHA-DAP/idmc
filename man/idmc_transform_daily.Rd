@@ -52,7 +52,7 @@ the first reported date in the IDMC dataset. Data is always infilled with 0
 between start and end dates.
 }
 \examples{
-\dontshow{if (!is.null(Sys.getenv("IDMC_API"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (!is.na(Sys.getenv("IDMC_API", unset = NA))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 idmc_get_data() \%>\%
   idmc_transform_daily()
 \dontshow{\}) # examplesIf}
