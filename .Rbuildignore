@@ -4,3 +4,4 @@
 ^\.github$
 ^data-raw$
 ^idmc\.Rproj$
+^cran-comments\.md$
