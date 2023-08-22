@@ -8,10 +8,16 @@ vignette: >
 ---
 
 ```{r, include = FALSE}
+api_envvar_available <- !is.null(Sys.getenv("IDMC_API"))
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  eval = api_envvar_available
 )
+```
+  
+```{r eval = !api_envvar_available, echo = FALSE, comment = NA}
+message("`IDMC_API` env variable not set, so code chunks will not be evaluated.")  
 ```
 
 ```{r setup}

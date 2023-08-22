@@ -29,7 +29,14 @@ contain data from \code{min_date} onward. Ensures that the few countries with
 observations from 2011 but nothing until 2018 do not skew results.}
 }
 \value{
-Data frame of daily displacement by country and displacement type.
+Data frame of daily displacement with the following columns:
+\describe{
+\item{iso3}{Country ISO3 code.}
+\item{country}{Country or area name.}
+\item{displacement_type}{Type of displacement.}
+\item{date}{Date.}
+\item{displacement_daily}{Daily level of displacement.}
+}
 }
 \description{
 \code{idmc_transform_daily()} transforms event data from the IDMC API (accessed
@@ -45,7 +52,7 @@ the first reported date in the IDMC dataset. Data is always infilled with 0
 between start and end dates.
 }
 \examples{
-\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (!is.null(Sys.getenv("IDMC_API"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 idmc_get_data() \%>\%
   idmc_transform_daily()
 \dontshow{\}) # examplesIf}

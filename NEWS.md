@@ -1,3 +1,12 @@
+# idmc 0.3.0
+
+* Fully removed deprecated functions `idmc_rolling_sum()` and `idmc_flagging()`
+to bring package to stable release.
+* Improved documentation to include examples that run if `IDMC_API` environment
+variable is available and clear return values.
+* Ensure vignette does not run if `IDMC_API` environment variable not available.
+* Initial release on CRAN.
+
 # idmc 0.2.0
 
 * `idmc_flagging()` and `idmc_rolling_sum()` deprecated as package focus pared

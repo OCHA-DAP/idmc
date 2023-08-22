@@ -2,8 +2,7 @@
 #'
 #' `idmc_get_data()` calls the IDMC API to retrieve displacement data. The data
 #' is converted from JSON to a data frame, date columns converted to `Date`
-#' types, and returned as a [tibble::tibble]. A valid URL endpoint must be
-#' saved in your environment as `IDMC_API`.
+#' types, and returned as a [tibble::tibble].
 #'
 #' @param api_url URL to the IDMC API. If `NULL`, the default, searches for
 #'     the `IDMC_API` environment variable.
@@ -12,12 +11,12 @@
 #'     are included in the documentation for the
 #'     [IDMC IDU API](https://www.internal-displacement.org/sites/default/files/IDMC_IDU_API_Codebook_14102020.pdf). # nolint
 #'
-#' @examplesIf interactive()
+#' @examplesIf !is.null(Sys.getenv("IDMC_API"))
 #' idmc_get_data()
 #'
 #' @export
 idmc_get_data <- function(api_url = NULL) {
-  api_url <- get_api_url(api_url)
+  api_url <- idmc_api_url(api_url)
   resp <- httr::GET(api_url)
 
   if (httr::http_type(resp) != "application/json") {
@@ -57,7 +56,7 @@ idmc_get_data <- function(api_url = NULL) {
 #' Raises an error if the environment variable `IDMC_API` isn't set.
 #'
 #' @noRd
-get_api_url <- function(api_url) {
+idmc_api_url <- function(api_url) {
   if (is.null(api_url)) {
     api_url <- Sys.getenv(
       x = "IDMC_API",
@@ -68,7 +67,7 @@ get_api_url <- function(api_url) {
   if (is.na(api_url)) {
     stop(
       "You need a valid URL to access the IDMC API. Once you have a valid URL ",
-      "save it as `IDMC_API` in your `.renviron` file. ",
+      "save it as `IDMC_API` in your `.Renviron` file. ",
       "`usethis::edit_r_environ()` provides convenient access to the file.",
       call. = FALSE
     )

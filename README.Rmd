@@ -23,31 +23,37 @@ knitr::opts_chunk$set(
 The goal of idmc is to provide easy access and wrangling of displacement data
 stored in the
 [Internal Displacement Monitoring Centre's](https://www.internal-displacement.org)
-displacement database. The data is retrieved from the 
+(IDMC) displacement database. The data is retrieved from the 
 [Internal Displacement Update API](https://www.internal-displacement.org/sites/default/files/IDMC_IDU_API_Codebook_14102020.pdf).
 
 ## Installation
 
-You can install the development version of idmc from [GitHub](https://github.com/) with:
+You can install idmc from CRAN:
+
+```r
+install.packages("idmc")
+```
+
+Alternatively, you can install the development version of idmc from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("ocha-dap/idmc")
+devtools::install_github("OCHA-DAP/idmc")
 ```
 
-
-## Usage
-
-```{r child="vignettes/idmc-usage.Rmd"}
-```
 ## API URL
 
-You need an API endpoint URL saved to your environment. These are provided by
+You need an IDMC endpoint URL to access the API. These are provided by
 IDMC. The easiest way to save the URL for use in your R sessions is by
 using `usethis::edit_r_environ()` and adding the variable there as:
 
 ```
 IDMC_API="Insert API URL here"
+```
+
+## Usage
+
+```{r child="vignettes/idmc-usage.Rmd"}
 ```
 
 ## Memoisation

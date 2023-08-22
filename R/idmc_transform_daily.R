@@ -25,9 +25,16 @@
 #'     observations from 2011 but nothing until 2018 do not skew results.
 #'
 #'
-#' @return Data frame of daily displacement by country and displacement type.
+#' @returns Data frame of daily displacement with the following columns:
+#' \describe{
+#'   \item{iso3}{Country ISO3 code.}
+#'   \item{country}{Country or area name.}
+#'   \item{displacement_type}{Type of displacement.}
+#'   \item{date}{Date.}
+#'   \item{displacement_daily}{Daily level of displacement.}
+#' }
 #'
-#' @examplesIf interactive()
+#' @examplesIf !is.null(Sys.getenv("IDMC_API"))
 #' idmc_get_data() %>%
 #'   idmc_transform_daily()
 #'
