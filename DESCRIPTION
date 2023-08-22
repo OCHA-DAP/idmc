@@ -6,7 +6,7 @@ Authors@R:
       given = "Seth",
       family = "Caldwell", 
       email = "caldwellst@gmail.com",
-      role = c("aut", "cre", "cpt")
+      role = c("aut", "cre", "cph")
     )
 Description: Convenient functions to load and wrangle event displacement data
     from the Internal Displacement Monitoring Centre.
