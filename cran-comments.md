@@ -4,3 +4,4 @@
 
 * This is a new release.
 * `Centre`, `IDMC`, and `idmc` are not misspelt in DESCRIPTION.
+* Package "Description" in DESCRIPTION updated based on CRAN feedback.
