@@ -34,7 +34,7 @@
 #'   \item{displacement_daily}{Daily level of displacement.}
 #' }
 #'
-#' @examplesIf !is.null(Sys.getenv("IDMC_API"))
+#' @examplesIf !is.na(Sys.getenv("IDMC_API", unset = NA))
 #' idmc_get_data() %>%
 #'   idmc_transform_daily()
 #'

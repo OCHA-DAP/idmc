@@ -11,7 +11,7 @@
 #'     are included in the documentation for the
 #'     [IDMC IDU API](https://www.internal-displacement.org/sites/default/files/IDMC_IDU_API_Codebook_14102020.pdf). # nolint
 #'
-#' @examplesIf !is.null(Sys.getenv("IDMC_API"))
+#' @examplesIf !is.na(Sys.getenv("IDMC_API", unset = NA))
 #' idmc_get_data()
 #'
 #' @export
