@@ -6,7 +6,7 @@
 \alias{idmc-package}
 \title{idmc: Load and Wrangle IDMC Displacement Data}
 \description{
-Utilities to load and wrangle event displacement data from the Internal Displacement Monitoring Centre.
+Utilities to work with data from the Internal Displacement Monitoring Centre (IDMC), with convenient functions for loading events data from the IDMC API and transforming events data to daily displacement estimates.
 }
 \seealso{
 Useful links:
