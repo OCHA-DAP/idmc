@@ -5,6 +5,7 @@ to bring package to stable release.
 * Improved documentation to include examples that run if `IDMC_API` environment
 variable is available and clear return values.
 * Ensure vignette does not run if `IDMC_API` environment variable not available.
+* Removed memoization functionality for API call to pass CRAN checks.
 * Initial release on CRAN.
 
 # idmc 0.2.0

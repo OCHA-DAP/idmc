@@ -55,18 +55,3 @@ IDMC_API="Insert API URL here"
 
 ```{r child="vignettes/idmc-usage.Rmd"}
 ```
-
-## Memoisation
-
-`idmc_get_data()`, the function that requests to the IDU API, has cached
-functionality based on `memoise::memeoise()` so that calls to the
-`idmc_get_data()` function are cached in your local memory in a single session.
-This means that once you've made a call to retrieve the displacement data from,
-the API, running an identical request will use the cached data rather than
-re-request the data from the IDU database.
-
-If you need to ensure that the idmc package is making new requests to the API
-each time `idmc_get_data()` is called, then
-you will need to run `memoise::forget(idmc::idmc_get_data)` to clear the cache
-prior to repeating a call. See the documentation of the
-[memoise package](https://github.com/r-lib/memoise) for more details.

@@ -22,7 +22,6 @@ Imports:
     jsonlite,
     lifecycle,
     magrittr,
-    memoise,
     stringr,
     tidyr
 Suggests: 
