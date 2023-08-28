@@ -8,8 +8,10 @@ Authors@R:
       email = "caldwellst@gmail.com",
       role = c("aut", "cre", "cph")
     )
-Description: Utilities to load and wrangle event displacement data
-    from the Internal Displacement Monitoring Centre.
+Description: Utilities to work with data from the Internal Displacement
+    Monitoring Centre (IDMC), with convenient functions for loading events
+    data from the IDMC API and transforming events data to daily
+    displacement estimates.
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
