@@ -1,3 +1,7 @@
+# Development
+
+* Fixed regex for extracting `event_info` in `idmc_get_data()`.
+
 # idmc 0.3.0
 
 * Fully removed deprecated functions `idmc_rolling_sum()` and `idmc_flagging()`
