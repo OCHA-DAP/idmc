@@ -87,5 +87,5 @@ extract_popup_url <- function(x) {
 #'
 #' @noRd
 extract_info_text <- function(x) {
-  stringr::str_extract(x, "(?<=\\<br\\> )(.*)(?= \\<br\\>)")
+  stringr::str_extract(x, "(?<=<br> )(.*)(?= <br>)")
 }
