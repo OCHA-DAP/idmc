@@ -12,19 +12,33 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 
 The goal of idmc is to provide easy access and wrangling of displacement
 data stored in the [Internal Displacement Monitoring
-Centre’s](https://www.internal-displacement.org) displacement database.
-The data is retrieved from the [Internal Displacement Update
+Centre’s](https://www.internal-displacement.org) (IDMC) displacement
+database. The data is retrieved from the [Internal Displacement Update
 API](https://www.internal-displacement.org/sites/default/files/IDMC_IDU_API_Codebook_14102020.pdf).
 
 ## Installation
 
-You can install the development version of idmc from
+You can install idmc from CRAN:
+
+``` r
+install.packages("idmc")
+```
+
+Alternatively, you can install the development version of idmc from
 [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("ocha-dap/idmc")
+devtools::install_github("OCHA-DAP/idmc")
 ```
+
+## API URL
+
+You need an IDMC endpoint URL to access the API. These are provided by
+IDMC. The easiest way to save the URL for use in your R sessions is by
+using `usethis::edit_r_environ()` and adding the variable there as:
+
+    IDMC_API="Insert API URL here"
 
 ## Usage
 
@@ -38,20 +52,20 @@ API directly into R.
 ``` r
 df <- idmc_get_data()
 df
-#> # A tibble: 19,916 × 26
+#> # A tibble: 20,289 × 26
 #>        id country  iso3  latitude longitude centroid displacement_type qualifier
 #>     <int> <chr>    <chr>    <dbl>     <dbl> <chr>    <chr>             <chr>    
-#>  1 118931 Myanmar  MMR      13.0      98.7  [13.014… Disaster          total    
-#>  2 118836 India    IND      20.2      84.7  [20.190… Disaster          total    
-#>  3 118595 Canada   CAN      63.6    -136.   [63.595… Disaster          approxim…
-#>  4 118909 Viet Nam VNM      12.2     108.   [12.175… Disaster          total    
-#>  5 118907 Viet Nam VNM      22.2     104.   [22.176… Disaster          total    
-#>  6 118621 Indones… IDN      -1.46    120.   [-1.462… Disaster          total    
-#>  7 118593 France   FRA      43.7       3.90 [43.714… Disaster          total    
-#>  8 118899 United … USA      58.4    -134.   [58.379… Disaster          total    
-#>  9 118827 India    IND      26.1      90.8  [26.054… Disaster          total    
-#> 10 118560 China    CHN      37.1     116.   [37.134… Disaster          total    
-#> # ℹ 19,906 more rows
+#>  1 120233 United … USA      31.1     -93.2  [31.114… Disaster          total    
+#>  2 120186 United … USA      39.1     -94.5  [39.092… Disaster          total    
+#>  3 120191 United … USA      44.9    -123.   [44.912… Disaster          total    
+#>  4 120197 Dominic… DOM      19.3     -70.0  [19.281… Disaster          total    
+#>  5 120195 Dominic… DOM      19.3     -70.0  [19.281… Disaster          total    
+#>  6 120110 France   FRA      44.5       6.47 [44.498… Disaster          more than
+#>  7 120124 Indones… IDN      -7.46    109.   [-7.458… Disaster          total    
+#>  8 120188 United … USA      30.7     -93.5  [30.706… Disaster          total    
+#>  9 120208 Viet Nam VNM      22.8     105.   [22.779… Disaster          total    
+#> 10 120047 Philipp… PHL       6.85    124.   [6.8514… Disaster          total    
+#> # ℹ 20,279 more rows
 #> # ℹ 18 more variables: figure <int>, displacement_date <date>,
 #> #   displacement_start_date <date>, displacement_end_date <date>, year <int>,
 #> #   event_name <chr>, event_start_date <date>, event_end_date <date>,
@@ -69,7 +83,7 @@ date, for all countries and type of displacement.
 
 ``` r
 idmc_transform_daily(df)
-#> # A tibble: 71,296 × 5
+#> # A tibble: 71,750 × 5
 #>    iso3  country    displacement_type date       displacement_daily
 #>    <chr> <chr>      <chr>             <date>                  <dbl>
 #>  1 AB9   Abyei Area Conflict          2020-01-20               600 
@@ -82,31 +96,8 @@ idmc_transform_daily(df)
 #>  8 AB9   Abyei Area Conflict          2020-01-27               600 
 #>  9 AB9   Abyei Area Conflict          2020-04-13               260 
 #> 10 AB9   Abyei Area Conflict          2022-02-10              9937.
-#> # ℹ 71,286 more rows
+#> # ℹ 71,740 more rows
 ```
 
 While there are a few other parameters you can play around with in these
-functions, this is the primary purpose of this simple package. \## API
-URL
-
-You need an API endpoint URL saved to your environment. These are
-provided by IDMC. The easiest way to save the URL for use in your R
-sessions is by using `usethis::edit_r_environ()` and adding the variable
-there as:
-
-    IDMC_API="Insert API URL here"
-
-## Memoisation
-
-`idmc_get_data()`, the function that requests to the IDU API, has cached
-functionality based on `memoise::memeoise()` so that calls to the
-`idmc_get_data()` function are cached in your local memory in a single
-session. This means that once you’ve made a call to retrieve the
-displacement data from, the API, running an identical request will use
-the cached data rather than re-request the data from the IDU database.
-
-If you need to ensure that the idmc package is making new requests to
-the API each time `idmc_get_data()` is called, then you will need to run
-`memoise::forget(idmc::idmc_get_data)` to clear the cache prior to
-repeating a call. See the documentation of the [memoise
-package](https://github.com/r-lib/memoise) for more details.
+functions, this is the primary purpose of this simple package.

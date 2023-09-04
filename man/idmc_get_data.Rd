@@ -18,11 +18,10 @@ are included in the documentation for the
 \description{
 \code{idmc_get_data()} calls the IDMC API to retrieve displacement data. The data
 is converted from JSON to a data frame, date columns converted to \code{Date}
-types, and returned as a \link[tibble:tibble]{tibble::tibble}. A valid URL endpoint must be
-saved in your environment as \code{IDMC_API}.
+types, and returned as a \link[tibble:tibble]{tibble::tibble}.
 }
 \examples{
-\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (!is.na(Sys.getenv("IDMC_API", unset = NA))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 idmc_get_data()
 \dontshow{\}) # examplesIf}
 }
