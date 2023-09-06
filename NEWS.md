@@ -1,6 +1,7 @@
 # Development
 
 * Fixed regex for extracting `event_info` in `idmc_get_data()`.
+* Added link to the IDMC website in DESCRIPTION.
 
 # idmc 0.3.0
 
