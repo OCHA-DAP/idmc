@@ -1,7 +1,9 @@
-# Development
+# idmc 0.3.1
 
 * Fixed regex for extracting `event_info` in `idmc_get_data()`.
 * Added link to the IDMC website in DESCRIPTION.
+* Use newly available `event_id` to remove duplicates when transforming IDMC
+event data into a daily time series.
 
 # idmc 0.3.0
 
