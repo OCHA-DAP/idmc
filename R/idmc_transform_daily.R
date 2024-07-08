@@ -1,7 +1,13 @@
 #' Transform displacement event data to daily data
 #'
 #' `idmc_transform_daily()` transforms event data from the IDMC API (accessed
-#' through [idmc_get_data()]). The data for each event is spread out between
+#' through [idmc_get_data()]). For each event, identified by an `event_id`,
+#' potentially duplicated data is filtered out. If there are `Recommended figure`
+#' rows based on the `role` column, then only those are kept. If there are no
+#' recommended figures, then only the latest update to the `event_id` data is
+#' kept, using `created_at` to find latest updates.
+#'
+#' The data for each event is spread out between
 #' the start and end date, with the total displacement uniformly distributed
 #' across all days. For each country and displacement type (conflict, disaster,
 #' or other), all displacement on a day is summed up to create a total
@@ -41,7 +47,7 @@
 #' @export
 idmc_transform_daily <- function(
     df,
-    min_date = min(as.Date("2018-01-01")),
+    min_date = as.Date("2018-01-01"),
     max_date = Sys.Date(),
     filter_min_date = TRUE
   ) {
@@ -67,30 +73,17 @@ idmc_transform_daily <- function(
     derived_from = "idmc_get_data()"
   )
 
-  # correct missing or reversed dates in the data frame
-  df_correct <- df %>%
-    dplyr::filter(
-      !is.na(.data[["displacement_date"]]) # drop where no start/end available
-    ) %>%
-    dplyr::mutate(
-      start_date = dplyr::if_else( # reverse and fill start_date if necessary
-        is.na(.data[[e_col_]]) | .data[[s_col_]] <= .data[[e_col_]],
-        .data[[s_col_]],
-        .data[[e_col_]]
-      ),
-      end_date = dplyr::if_else( # reverse and fill end date if necessary
-        !is.na(.data[[e_col_]]) & .data[[s_col_]] <= .data[[e_col_]],
-        .data[[e_col_]],
-        .data[[s_col_]]
-      )
-    )
-
   # create daily displacement from events
-  df_daily <- df_correct %>%
+  df_daily <- df %>%
+    dplyr::group_by(.data$event_id) |>
+    dplyr::filter(
+      .data$role == "Recommended figure" | # only keep recommended figures if available
+      (!("Recommended figure" %in% .data$role) & .data$created_at == max(.data$created_at)) # keep latest otherwise
+    ) %>%
     dplyr::rowwise() %>%
     dplyr::mutate(
       date = list(
-        seq(.data$start_date, .data$end_date, by = "day")
+        seq(.data$displacement_start_date, .data$displacement_end_date, by = "day")
       ),
       displacement_daily = .data$figure / length(.data$date)
     ) %>%
