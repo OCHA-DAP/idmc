@@ -78,7 +78,7 @@ idmc_transform_daily <- function(
     dplyr::group_by(.data$event_id) |>
     dplyr::filter(
       .data$role == "Recommended figure" | # only keep recommended figures if available
-      !("Recommended figure" %in% .data$role) # keep everything otherwise
+      !("Recommended figure" %in% .data$role) & (.data$created_at == max(.data$created_at)) # keep latest updates otherwise
     ) %>%
     dplyr::rowwise() %>%
     dplyr::mutate(
