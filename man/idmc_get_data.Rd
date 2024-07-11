@@ -18,7 +18,7 @@ are included in the documentation for the
 \description{
 \code{idmc_get_data()} calls the IDMC API to retrieve displacement data. The data
 is converted from JSON to a data frame, date columns converted to \code{Date}
-types, and returned as a \link[tibble:tibble]{tibble::tibble}.
+types, and returned as a \link[dplyr:reexports]{dplyr::tibble}.
 }
 \examples{
 \dontshow{if (!is.na(Sys.getenv("IDMC_API", unset = NA))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}

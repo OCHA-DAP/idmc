@@ -6,7 +6,7 @@
 \usage{
 idmc_transform_daily(
   df,
-  min_date = min(as.Date("2018-01-01")),
+  min_date = as.Date("2018-01-01"),
   max_date = Sys.Date(),
   filter_min_date = TRUE
 )
@@ -40,13 +40,19 @@ Data frame of daily displacement with the following columns:
 }
 \description{
 \code{idmc_transform_daily()} transforms event data from the IDMC API (accessed
-through \code{\link[=idmc_get_data]{idmc_get_data()}}). The data for each event is spread out between
+through \code{\link[=idmc_get_data]{idmc_get_data()}}). For each event, identified by an \code{event_id},
+potentially duplicated data is filtered out. If there are \verb{Recommended figure}
+rows based on the \code{role} column, then only those are kept. If there are no
+recommended figures, then only the latest update to the \code{event_id} data is
+kept, using \code{created_at} to find latest updates.
+}
+\details{
+The data for each event is spread out between
 the start and end date, with the total displacement uniformly distributed
 across all days. For each country and displacement type (conflict, disaster,
 or other), all displacement on a day is summed up to create a total
 daily displacement figure.
-}
-\details{
+
 By default, data is backfilled for all countries and displacement types to
 the first reported date in the IDMC dataset. Data is always infilled with 0
 between start and end dates.

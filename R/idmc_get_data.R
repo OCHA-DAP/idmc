@@ -2,7 +2,7 @@
 #'
 #' `idmc_get_data()` calls the IDMC API to retrieve displacement data. The data
 #' is converted from JSON to a data frame, date columns converted to `Date`
-#' types, and returned as a [tibble::tibble].
+#' types, and returned as a [dplyr::tibble].
 #'
 #' @param api_url URL to the IDMC API. If `NULL`, the default, searches for
 #'     the `IDMC_API` environment variable.
