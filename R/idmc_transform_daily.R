@@ -64,6 +64,7 @@ idmc_transform_daily <- function(
     e_col_,
     "displacement_date",
     "figure",
+    "locations_coordinates",
     group_cols[-4]
   )
 
@@ -73,14 +74,28 @@ idmc_transform_daily <- function(
     derived_from = "idmc_get_data()"
   )
 
-  # create daily displacement from events
-  df_daily <- df %>%
-    dplyr::group_by(.data$event_id) |>
+  # filter to rows with Recommended figure if they exist
+  df_recommended_figures <- df %>% dplyr::group_by(.data$event_id) |>
     dplyr::filter(
-      .data$role == "Recommended figure" | # only keep recommended figures if available
-      !("Recommended figure" %in% .data$role) & (.data$created_at == max(.data$created_at)) # keep latest updates otherwise
-    ) %>%
-    dplyr::rowwise() %>%
+      .data$role == "Recommended figure")
+
+  # if no recommended figure, take latest triangulation figure for each event_id and location
+  df_triangulation_figures_same_location <- df %>%
+    dplyr::filter((role == "Triangulation")& !(event_id %in% df_recommended_figures$event_id )) %>%
+    dplyr::mutate(created_at = as.POSIXct(created_at)) %>%
+    dplyr::group_by(event_id, locations_coordinates) %>%
+    dplyr::slice_max(order_by = created_at, n = 1, with_ties = FALSE)
+
+  # if no recommended figure, and multiple locations for an event_id,
+  # sum figures and take latest created_at to have a single entry per event_id
+  df_triangulation_figures_different_location <- df_triangulation_figures_same_location %>% dplyr::group_by(.data$event_id) |>
+    dplyr::mutate(figure=sum(figure), na.rm = TRUE) %>%
+    dplyr::slice_max(order_by = created_at, n = 1, with_ties = FALSE)
+
+  df_daily <- dplyr::bind_rows(
+    df_recommended_figures,
+    df_triangulation_figures_different_location
+  ) %>% dplyr::rowwise() %>%
     dplyr::mutate(
       date = list(
         seq(.data$displacement_start_date, .data$displacement_end_date, by = "day")
@@ -98,7 +113,6 @@ idmc_transform_daily <- function(
       displacement_daily = sum(.data$displacement_daily),
       .groups = "drop"
     )
-
 
   # replace with NA so that no backfilling or extrapolation occurs
 
