@@ -83,12 +83,12 @@ idmc_transform_daily <- function(
   df_triangulation_figures_same_location <- df %>%
     dplyr::filter((role == "Triangulation")& !(event_id %in% df_recommended_figures$event_id )) %>%
     dplyr::mutate(created_at = as.POSIXct(created_at)) %>%
-    dplyr::group_by(event_id, locations_coordinates) %>%
+    dplyr::group_by(event_id, locations_coordinates, displacement_date) %>%
     dplyr::slice_max(order_by = created_at, n = 1, with_ties = FALSE)
 
   # if no recommended figure, and multiple locations for an event_id,
-  # sum figures and take latest created_at to have a single entry per event_id
-  df_triangulation_figures_different_location <- df_triangulation_figures_same_location %>% dplyr::group_by(.data$event_id) |>
+  # sum figures and take latest created_at to have a single entry per event_id, displacement_date
+  df_triangulation_figures_different_location <- df_triangulation_figures_same_location %>% dplyr::group_by(.data$event_id, .data$displacement_date) |>
     dplyr::mutate(figure=sum(figure), na.rm = TRUE) %>%
     dplyr::slice_max(order_by = created_at, n = 1, with_ties = FALSE)
 
