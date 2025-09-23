@@ -5,11 +5,12 @@
 #' potentially duplicated data is filtered out. If there are `Recommended figure`
 #' rows based on the `role` column, then only those are kept. If there are no
 #' recommended figures, then only the latest update to the `event_id` data is
-#' kept, using `created_at` to find latest updates.
+#' kept for each `locations_coordinates`, using `created_at` to find latest updates.
 #'
 #' The data for each event is spread out between
-#' the start and end date, with the total displacement uniformly distributed
-#' across all days. For each country and displacement type (conflict, disaster,
+#' the minimum start and maximum end date for each `event?id`,
+#' with the total displacement uniformly distributed across all days.
+#' For each country and displacement type (conflict, disaster,
 #' or other), all displacement on a day is summed up to create a total
 #' daily displacement figure.
 #'
@@ -87,10 +88,13 @@ idmc_transform_daily <- function(
     dplyr::slice_max(order_by = created_at, n = 1, with_ties = FALSE)
 
   # if no recommended figure, and multiple locations for an event_id,
-  # sum figures and take latest created_at to have a single entry per event_id
+  # sum figures and take:
+  # minimum `displacement_start_date` for each `event_id`
+  # maximum `displacement_end_date` for each `event_id`
+  # latest created_at to have a single entry per event_id
   df_triangulation_figures_different_location <- df_triangulation_figures_same_location %>%
     dplyr::group_by(.data$event_id)  %>%
-    dplyr::mutate(figure = sum(.data$figure, na.rm = TRUE)) %>%  # sum within event_id
+    dplyr::mutate(figure = sum(.data$figure, na.rm = TRUE), displacement_start_date=min(.data$displacement_start_date), displacement_end_date=max(.data$displacement_end_date)) %>%  # sum within event_id
     dplyr::slice_max(.data$created_at, n = 1, with_ties = FALSE) %>% # keep latest row
     dplyr::ungroup()
 
