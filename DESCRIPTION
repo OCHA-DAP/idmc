@@ -1,11 +1,11 @@
 Package: idmc
 Title: Load and Wrangle IDMC Displacement Data
-Version: 0.3.1
+Version: 0.4.0
 Authors@R: 
     person(
-      given = "Seth",
-      family = "Caldwell", 
-      email = "caldwellst@gmail.com",
+      given = "Giulia",
+      family = "Martini", 
+      email = "giulia.martini@un.org",
       role = c("aut", "cre", "cph")
     )
 Description: Utilities to work with data from the Internal Displacement
