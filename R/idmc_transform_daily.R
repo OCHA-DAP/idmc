@@ -82,10 +82,10 @@ idmc_transform_daily <- function(
 
   # if no recommended figure, take latest triangulation figure for each event_id and location
   df_triangulation_figures_same_location <- df %>%
-    dplyr::filter((role == "Triangulation")& !(event_id %in% df_recommended_figures$event_id )) %>%
-    dplyr::mutate(created_at = as.POSIXct(created_at)) %>%
-    dplyr::group_by(event_id, locations_coordinates) %>%
-    dplyr::slice_max(order_by = created_at, n = 1, with_ties = FALSE)
+    dplyr::filter((.data$role == "Triangulation")& !(.data$event_id %in% df_recommended_figures$event_id )) %>%
+    dplyr::mutate(.data$created_at = as.POSIXct(.data$created_at)) %>%
+    dplyr::group_by(.data$event_id, .data$locations_coordinates) %>%
+    dplyr::slice_max(order_by = .data$created_at, n = 1, with_ties = FALSE)
 
   # if no recommended figure, and multiple locations for an event_id,
   # sum figures and take:
@@ -104,12 +104,12 @@ idmc_transform_daily <- function(
 
   df_daily <- df_combined %>% dplyr::rowwise() %>%
     dplyr::mutate(
-      date = if (!is.na(displacement_start_date) && !is.na(displacement_end_date)) {
-        list(seq(displacement_start_date, displacement_end_date, by = "day"))
+      date = if (!is.na(.data$displacement_start_date) && !is.na(.data$displacement_end_date)) {
+        list(seq(.data$displacement_start_date, .data$displacement_end_date, by = "day"))
       } else {
         list(as.Date(character()))  # empty sequence instead of NA
       },
-      displacement_daily = if (!is.na(displacement_start_date) && !is.na(displacement_end_date)) {
+      displacement_daily = if (!is.na(.data$displacement_start_date) && !is.na(.data$displacement_end_date)) {
         figure / length(date)
       } else {
         NA_real_
@@ -128,7 +128,7 @@ idmc_transform_daily <- function(
     )
 
   n_missing_dates <- df_combined %>%
-    dplyr::filter(is.na(displacement_start_date) | is.na(displacement_end_date)) %>%
+    dplyr::filter(is.na(.data$displacement_start_date) | is.na(.data$displacement_end_date)) %>%
     nrow()
   if (n_missing_dates > 0) {
     warning(glue::glue("{n_missing_dates} rows dropped because of missing start or end dates."))
