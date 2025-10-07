@@ -5,11 +5,12 @@
 #' potentially duplicated data is filtered out. If there are `Recommended figure`
 #' rows based on the `role` column, then only those are kept. If there are no
 #' recommended figures, then only the latest update to the `event_id` data is
-#' kept, using `created_at` to find latest updates.
+#' kept for each `locations_coordinates`, using `created_at` to find latest updates.
 #'
 #' The data for each event is spread out between
-#' the start and end date, with the total displacement uniformly distributed
-#' across all days. For each country and displacement type (conflict, disaster,
+#' the minimum start and maximum end date for each `event?id`,
+#' with the total displacement uniformly distributed across all days.
+#' For each country and displacement type (conflict, disaster,
 #' or other), all displacement on a day is summed up to create a total
 #' daily displacement figure.
 #'
@@ -64,6 +65,7 @@ idmc_transform_daily <- function(
     e_col_,
     "displacement_date",
     "figure",
+    "locations_coordinates",
     group_cols[-4]
   )
 
@@ -73,19 +75,45 @@ idmc_transform_daily <- function(
     derived_from = "idmc_get_data()"
   )
 
-  # create daily displacement from events
-  df_daily <- df %>%
-    dplyr::group_by(.data$event_id) |>
+  # filter to rows with Recommended figure if they exist
+  df_recommended_figures <- df %>% dplyr::group_by(.data$event_id) |>
     dplyr::filter(
-      .data$role == "Recommended figure" | # only keep recommended figures if available
-      !("Recommended figure" %in% .data$role) & (.data$created_at == max(.data$created_at)) # keep latest updates otherwise
-    ) %>%
-    dplyr::rowwise() %>%
+      .data$role == "Recommended figure")
+
+  # if no recommended figure, take latest triangulation figure for each event_id and location
+  df_triangulation_figures_same_location <- df %>%
+    dplyr::filter((.data$role == "Triangulation")& !(.data$event_id %in% df_recommended_figures$event_id )) %>%
+    dplyr::mutate(created_at = as.POSIXct(.data$created_at)) %>%
+    dplyr::group_by(.data$event_id, .data$locations_coordinates) %>%
+    dplyr::slice_max(order_by = .data$created_at, n = 1, with_ties = FALSE)
+
+  # if no recommended figure, and multiple locations for an event_id,
+  # sum figures and take:
+  # minimum `displacement_start_date` for each `event_id`
+  # maximum `displacement_end_date` for each `event_id`
+  # latest created_at to have a single entry per event_id
+  df_triangulation_figures_different_location <- df_triangulation_figures_same_location %>%
+    dplyr::group_by(.data$event_id)  %>%
+    dplyr::mutate(figure = sum(.data$figure, na.rm = TRUE), displacement_start_date=min(.data$displacement_start_date), displacement_end_date=max(.data$displacement_end_date)) %>%  # sum within event_id
+    dplyr::slice_max(.data$created_at, n = 1, with_ties = FALSE) %>% # keep latest row
+    dplyr::ungroup()
+
+  df_combined <- dplyr::bind_rows(
+    df_recommended_figures,
+    df_triangulation_figures_different_location)
+
+  df_daily <- df_combined %>% dplyr::rowwise() %>%
     dplyr::mutate(
-      date = list(
-        seq(.data$displacement_start_date, .data$displacement_end_date, by = "day")
-      ),
-      displacement_daily = .data$figure / length(.data$date)
+      date = if (!is.na(.data$displacement_start_date) && !is.na(.data$displacement_end_date)) {
+        list(seq(.data$displacement_start_date, .data$displacement_end_date, by = "day"))
+      } else {
+        list(as.Date(character()))  # empty sequence instead of NA
+      },
+      displacement_daily = if (!is.na(.data$displacement_start_date) && !is.na(.data$displacement_end_date)) {
+        figure / length(date)
+      } else {
+        NA_real_
+      }
     ) %>%
     dplyr::ungroup() %>%
     tidyr::unnest(
@@ -99,7 +127,12 @@ idmc_transform_daily <- function(
       .groups = "drop"
     )
 
-
+  n_missing_dates <- df_combined %>%
+    dplyr::filter(is.na(.data$displacement_start_date) | is.na(.data$displacement_end_date)) %>%
+    nrow()
+  if (n_missing_dates > 0) {
+    warning(glue::glue("{n_missing_dates} rows dropped because of missing start or end dates."))
+  }
   # replace with NA so that no backfilling or extrapolation occurs
 
   if (is.null(max_date)) {
