@@ -14,7 +14,7 @@ The goal of idmc is to provide easy access and wrangling of displacement
 data stored in the [Internal Displacement Monitoring
 Centre’s](https://www.internal-displacement.org) (IDMC) displacement
 database. The data is retrieved from the [Internal Displacement Update
-API](https://www.internal-displacement.org/sites/default/files/IDMC_IDU_API_Codebook_14102020.pdf).
+API](https://www.internal-displacement.org/database/api-documentation/).
 
 ## Installation
 
@@ -75,7 +75,7 @@ df
 ```
 
 This data frame, with variables described in the [API
-documentation](https://www.internal-displacement.org/sites/default/files/IDMC_IDU_API_Codebook_14102020.pdf),
+documentation](https://www.internal-displacement.org/database/api-documentation/),
 includes 1 row per event. We can normalize this to daily displacement,
 assuming uniform distribution of displacement between start and end
 date, for all countries and type of displacement.

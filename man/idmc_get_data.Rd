@@ -13,7 +13,7 @@ the \code{IDMC_API} environment variable.}
 \value{
 Tibble of displacement data. Description of the data frame variables
 are included in the documentation for the
-\href{https://www.internal-displacement.org/sites/default/files/IDMC_IDU_API_Codebook_14102020.pdf}{IDMC IDU API}. # nolint
+\href{https://www.internal-displacement.org/database/api-documentation/}{IDMC IDU API}. # nolint
 }
 \description{
 \code{idmc_get_data()} calls the IDMC API to retrieve displacement data. The data

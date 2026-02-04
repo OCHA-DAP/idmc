@@ -33,7 +33,7 @@ df
 ```
 
 This data frame, with variables described in the
-[API documentation](https://www.internal-displacement.org/sites/default/files/IDMC_IDU_API_Codebook_14102020.pdf), includes 1 row per event.
+[API documentation](https://www.internal-displacement.org/database/api-documentation/), includes 1 row per event.
 We can normalize this to daily displacement, assuming uniform distribution of displacement
 between start and end date, for all countries and type of displacement.
 `idmc_transform_daily()`.
