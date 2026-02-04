@@ -44,12 +44,13 @@ through \code{\link[=idmc_get_data]{idmc_get_data()}}). For each event, identifi
 potentially duplicated data is filtered out. If there are \verb{Recommended figure}
 rows based on the \code{role} column, then only those are kept. If there are no
 recommended figures, then only the latest update to the \code{event_id} data is
-kept, using \code{created_at} to find latest updates.
+kept for each \code{locations_coordinates}, using \code{created_at} to find latest updates.
 }
 \details{
 The data for each event is spread out between
-the start and end date, with the total displacement uniformly distributed
-across all days. For each country and displacement type (conflict, disaster,
+the minimum start and maximum end date for each \code{event?id},
+with the total displacement uniformly distributed across all days.
+For each country and displacement type (conflict, disaster,
 or other), all displacement on a day is summed up to create a total
 daily displacement figure.
 

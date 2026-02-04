@@ -17,7 +17,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Seth Caldwell \email{caldwellst@gmail.com} [copyright holder]
+\strong{Maintainer}: Giulia Martini \email{giulia.martini@un.org} [copyright holder]
 
 }
 \keyword{internal}
