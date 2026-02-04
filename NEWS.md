@@ -1,3 +1,11 @@
+# idmc 0.4.1
+
+* Fixed bug in `idmc_transform_daily()`.
+
+# idmc 0.4.0
+
+* Improved logic in `idmc_transform_daily()`.
+
 # idmc 0.3.1
 
 * Fixed regex for extracting `event_info` in `idmc_get_data()`.

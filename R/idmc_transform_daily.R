@@ -93,7 +93,7 @@ idmc_transform_daily <- function(
   # maximum `displacement_end_date` for each `event_id`
   # latest created_at to have a single entry per event_id
   df_triangulation_figures_different_location <- df_triangulation_figures_same_location %>%
-    dplyr::group_by(.data$event_id)  %>%
+    dplyr::group_by(.data$event_id, .data$iso3)  %>%
     dplyr::mutate(figure = sum(.data$figure, na.rm = TRUE), displacement_start_date=min(.data$displacement_start_date), displacement_end_date=max(.data$displacement_end_date)) %>%  # sum within event_id
     dplyr::slice_max(.data$created_at, n = 1, with_ties = FALSE) %>% # keep latest row
     dplyr::ungroup()
