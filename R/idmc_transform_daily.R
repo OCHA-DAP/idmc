@@ -110,7 +110,7 @@ idmc_transform_daily <- function(
         list(as.Date(character()))  # empty sequence instead of NA
       },
       displacement_daily = if (!is.na(.data$displacement_start_date) && !is.na(.data$displacement_end_date)) {
-        figure / length(date)
+        .data$figure / length(date)
       } else {
         NA_real_
       }
